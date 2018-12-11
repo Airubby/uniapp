@@ -3,12 +3,76 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "uni-app"
+        "app-plus": {
+            "titleNView": false
+        },
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/classify/index",
+      "style": {
+        "navigationBarTitleText": "分类功能"
+      }
+    },
+    {
+      "path": "pages/alarm/index",
+      "style": {
+        "navigationBarTitleText": "告警"
+      }
+    },
+    {
+      "path": "pages/devinfo/index",
+      "style": {
+        "navigationBarTitleText": "设备查询"
+      }
+    },
+    {
+      "path": "pages/mine/index",
+      "style": {
+        "navigationBarTitleText": "我的"
       }
     }
     
   ],
-  
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#007AFF",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/icons/ic_home_normal.svg",
+        "selectedIconPath": "static/icons/ic_home_selected.svg",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/classify/index",
+        "iconPath": "static/icons/ic_classification_normal.svg",
+        "selectedIconPath": "static/icons/ic_classification_selected.svg",
+        "text": "分类功能"
+      },
+      {
+        "pagePath": "pages/alarm/index",
+        "iconPath": "static/icons/ic_alarm_normal.svg",
+        "selectedIconPath": "static/icons/ic_alarm_selected.svg",
+        "text": "告警"
+      },
+      {
+        "pagePath": "pages/devinfo/index",
+        "iconPath": "static/icons/ic_DevInfo_normal.svg",
+        "selectedIconPath": "static/icons/ic_DevInfo_selected.svg",
+        "text": "设备查询"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "iconPath": "static/icons/ic_mine_normal.svg",
+        "selectedIconPath": "static/icons/ic_mine_selected.svg",
+        "text": "我的"
+      }
+    ]
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

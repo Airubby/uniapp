@@ -1,0 +1,18 @@
+body{
+	background: #EFF1F6;
+}
+.bgwhite{
+	background: #ffffff;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.mb20{
+	margin-bottom: 20upx;
+}
+.content{
+	padding: 0 20upx;
+}

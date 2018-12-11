@@ -10,7 +10,7 @@
 	export default {
 		data() {
 			return {
-				title: 'About'
+				title: '设备分类'
 			}
 		},
 		onLoad() {
