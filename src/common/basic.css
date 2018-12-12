@@ -13,6 +13,32 @@ body{
 .mb20{
 	margin-bottom: 20upx;
 }
+.mb10{
+	margin-bottom: 10upx;
+}
 .content{
 	padding: 0 20upx;
+}
+.fontcolor999{
+	color: #999;
+}
+.mr10{
+	margin-right: 10upx;
+}
+.fontbg{
+	color:#50C984;
+	background: #DBFBE9;
+}
+.fontbg1{
+	color:#FB9535;
+	background: #FFF6EC;
+}
+.bg1{
+	background: #D30703;
+}
+.bg2{
+	background: #FE5700;
+}
+.bg3{
+	background: #FE9803;
 }
