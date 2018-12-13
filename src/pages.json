@@ -4,7 +4,7 @@
       "path": "pages/index/index",
       "style": {
         "app-plus": {
-            "titleNView": false
+            "titleNView": true
         },
         "navigationBarTitleText": "首页"
       }
@@ -32,6 +32,12 @@
       "style": {
         "navigationBarTitleText": "我的"
       }
+    },
+    {
+      "path": "pages/workOrder/detail",
+      "style": {
+        "navigationBarTitleText": "工单详情"
+      }
     }
     
   ],
@@ -43,32 +49,32 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "static/icons/ic_home_normal.svg",
-        "selectedIconPath": "static/icons/ic_home_selected.svg",
+        "iconPath": "static/icons/ic_home_normal.png",
+        "selectedIconPath": "static/icons/ic_home_selected.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/classify/index",
-        "iconPath": "static/icons/ic_classification_normal.svg",
-        "selectedIconPath": "static/icons/ic_classification_selected.svg",
+        "iconPath": "static/icons/ic_classification_normal.png",
+        "selectedIconPath": "static/icons/ic_classification_selected.png",
         "text": "分类功能"
       },
       {
         "pagePath": "pages/alarm/index",
-        "iconPath": "static/icons/ic_alarm_normal.svg",
-        "selectedIconPath": "static/icons/ic_alarm_selected.svg",
+        "iconPath": "static/icons/ic_alarm_normal.png",
+        "selectedIconPath": "static/icons/ic_alarm_selected.png",
         "text": "告警"
       },
       {
         "pagePath": "pages/devinfo/index",
-        "iconPath": "static/icons/ic_DevInfo_normal.svg",
-        "selectedIconPath": "static/icons/ic_DevInfo_selected.svg",
+        "iconPath": "static/icons/ic_DevInfo_normal.png",
+        "selectedIconPath": "static/icons/ic_DevInfo_selected.png",
         "text": "设备查询"
       },
       {
         "pagePath": "pages/mine/index",
-        "iconPath": "static/icons/ic_mine_normal.svg",
-        "selectedIconPath": "static/icons/ic_mine_selected.svg",
+        "iconPath": "static/icons/ic_mine_normal.png",
+        "selectedIconPath": "static/icons/ic_mine_selected.png",
         "text": "我的"
       }
     ]
@@ -77,6 +83,17 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
-  }
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle":"custom"
+  },
+	"condition" : { 
+		"current": 0, 
+		"list": [
+			{
+				"name": "", 
+				"path": "", 
+				"query": "" 
+			}
+		]
+	}
 }

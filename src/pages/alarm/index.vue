@@ -1,39 +1,43 @@
 <template>
-	<view class="content">
-		<view>
-            <text class="title">{{title}}</text>
-        </view>
+	<view>
+		<view class="uni-padding-wrap">
+			<uni-segmented-control :current="current" :values="items" v-on:clickItem="onClickItem" styleType="text" activeColor="#007aff"></uni-segmented-control>
+		</view>
+		<view class="content">
+			<now-event v-if="current === 0"></now-event>
+			<his-event v-if="current === 1"></his-event>
+		</view>
 	</view>
 </template>
 
 <script>
+	import uniSegmentedControl from '@/components/uni-segmented-control.vue';
+	import nowEvent from './nowEvent.vue';
+	import hisEvent from './hisEvent.vue';
 	export default {
+		components: { nowEvent,hisEvent,uniSegmentedControl},
 		data() {
 			return {
-				title: '告警'
+				current:0,
+				items: [
+					'实时事件',
+					'历史事件'
+				],
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			onClickItem(index) {
+				if (this.current !== index) {
+					this.current = index;
+				}
+			},
 		}
 	}
 </script>
 
 <style>
-	.content {
-		text-align: center;
-		height: 400upx;
-	}
-    .logo{
-        height: 200upx;
-        width: 200upx;
-        margin-top: 200upx;
-    }
-	.title {
-		font-size: 36upx;
-		color: #8f8f94;
-	}
+	
 </style>

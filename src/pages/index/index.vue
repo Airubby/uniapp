@@ -1,21 +1,21 @@
 <template>
-	<view>
-		<view class="top bgwhite">
-			<view class="ic_image ic_search fl"><image src="/static/icons/ic_search.svg"></image></view>
-			<view class="ic_image ic_message fr"><image src="/static/icons/ic_message.svg"></image></view>
-			<view class="ic_image ic_signin fr"><image src="/static/icons/ic_signin.svg"></image></view>
-			<view class="ic_logo"><image src="/static/images/index_logo.png"></image></view>
+	<view class="hbody">
+		<view class="top bgwhite pd40">
+			<view class="ic_image ic_search fl"><img src="/static/icons/ic_search.svg"></img></view>
+			<view class="ic_image ic_message fr"><img src="/static/icons/ic_message.svg"></img></view>
+			<view class="ic_image ic_signin fr"><img src="/static/icons/ic_signin.svg"></img></view>
+			<view class="ic_logo"><img src="/static/images/index_logo.png"></img></view>
 		</view>
 		<view class="uni-slide">
 			<swiper :indicator-dots="true" :autoplay="true" :interval="5000" :duration="1000">
 				<swiper-item v-for="(item,index) in itemList" :key="index">
-					<image :src="item.url" :alt="item.title"></image>
+					<img :src="item.url" :alt="item.title"></img>
 				</swiper-item>
 			</swiper>
 		</view>
 		<view class="uni-swiper-msg bgwhite mb20">
 			<view class="uni-swiper-msg-icon">
-				<image src="/static/icons/ic-notification.svg"></image>
+				<img src="/static/icons/ic-notification.svg"></img>
 			</view>
 			<swiper vertical="true" autoplay="true" circular="true" interval="3000">
 				<swiper-item v-for="(item, index) in msg" :key="index" class="uni-swiper-msg-con">
@@ -26,10 +26,12 @@
 		<view class="content mb20">
 			<view class="bgwhite uni-nav">
 				<view class="uni-nav-con" v-for="(nav,index) in navList" :key="index">
-					<view class="image-view">
-						<image class="uni-nav-image" :src="nav.url"></image>
+					<view>
+						<view class="image-view">
+							<img class="uni-nav-image" :src="nav.url"></img>
+						</view>
+						<text class="uni-nav-title">{{nav.title}}</text>
 					</view>
-					<text class="uni-nav-title">{{nav.title}}</text>
 				</view>
 			</view>
 		</view>
@@ -38,7 +40,7 @@
 			<view v-for="(item,index) in eventList" :key="index">
 				<view class="bgwhite event-box mb20">
 					<view class="event-box-top">
-						<view class="event-box-toptitle">{{item.title}}</view>
+						<view class="event-box-toptitle" @click="goDetail(item)">{{item.title}}</view>
 						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">{{item.type|nameFilter}}</view>
 						<view class="alarmType" :class="{'bg1':item.alarmType=='1','bg2':item.alarmType=='2','bg3':item.alarmType=='3'}"></view>
 					</view>
@@ -84,9 +86,9 @@
 					{title:'更多',url:'/static/icons/ic_more.svg'},
 				],
 				eventList:[
-					{title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
-					{title:'机房001配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'2',content:'待执行'},
-					{title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'},
+					{id:'1',title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
+					{id:'2',title:'机房001配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'2',content:'待执行'},
+					{id:'3',title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'},
 				]
 			}
 		},
@@ -94,18 +96,23 @@
 
 		},
 		methods: {
-
+			goDetail:function(item){
+				uni.navigateTo({
+					url: "/pages/workOrder/detail?detail=" + encodeURIComponent(JSON.stringify(item))
+				})
+			}
 		}
 	}
 </script>
 
 <style>
 	.top{
-		height: 40upx;
-		padding: 20upx 40upx;
+		height: 60upx;
+		padding: 60upx 40upx 20upx 40upx;
 		position:relative;
 	}
-	.ic_image{
+	.ic_image,
+	.ic_image img{
 		width: 40upx;
 		height: 40upx;
 	}
@@ -119,14 +126,18 @@
 		width: 220upx;
 		height: 40upx;
 	}
-	.uni-slide uni-swiper{
-		height: 400upx;
+	.ic_logo img{
+		width:100%;
+		height:40upx;
 	}
-	uni-image{
+	.uni-slide uni-swiper{
+		height: 450upx;
+	}
+	.uni-slide img{
 		width:100%;
 		height:100%;
 	}
-	.uni-swiper-msg-icon uni-image{
+	.uni-swiper-msg-icon img{
 		width:80%;
 		height:80%;
 	}
@@ -151,9 +162,13 @@
 		margin-bottom: 15upx;
 	}
 	.image-view{
-		width: 35%;
-		height: 35%;
+		width: 60upx;
+		height: 60upx;
 		margin: 10upx auto;
+	}
+	.image-view img{
+		width:100%;
+		height: 100%;
 	}
 	.event-box{
 		padding: 0 20upx;
