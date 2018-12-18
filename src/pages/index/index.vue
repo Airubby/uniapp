@@ -1,10 +1,10 @@
 <template>
 	<view class="hbody">
-		<view class="top bgwhite pd40">
-			<view class="ic_image ic_search fl"><img src="/static/icons/ic_search.svg"></img></view>
-			<view class="ic_image ic_message fr"><img src="/static/icons/ic_message.svg"></img></view>
-			<view class="ic_image ic_signin fr"><img src="/static/icons/ic_signin.svg"></img></view>
-			<view class="ic_logo"><img src="/static/images/index_logo.png"></img></view>
+		<view class="top bgwhite">
+			<view class="ic_image ic_search fl"><img src="static/icons/ic_search.svg"></img></view>
+			<view class="ic_image ic_message fr"><img src="static/icons/ic_message.svg"></img></view>
+			<view class="ic_image ic_signin fr"><img src="static/icons/ic_signin.svg"></img></view>
+			<view class="ic_logo"><img src="static/images/index_logo.png"></img></view>
 		</view>
 		<view class="uni-slide">
 			<swiper :indicator-dots="true" :autoplay="true" :interval="5000" :duration="1000">
@@ -41,7 +41,10 @@
 				<view class="bgwhite event-box mb20">
 					<view class="event-box-top">
 						<view class="event-box-toptitle" @click="goDetail(item)">{{item.title}}</view>
-						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">{{item.type|nameFilter}}</view>
+						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">
+							<text v-if="item.type==1">巡检</text>
+							<text v-if="item.type==2">其它</text>
+						</view>
 						<view class="alarmType" :class="{'bg1':item.alarmType=='1','bg2':item.alarmType=='2','bg3':item.alarmType=='3'}"></view>
 					</view>
 					<view class="event-box-con">
@@ -67,8 +70,8 @@
 		data() {
 			return {
 				itemList: [
-					{title:'img1',url:'/static/images/slide.jpg'},
-					{title:'img2',url:'/static/images/slide.jpg'},
+					{title:'img1',url:'static/images/slide.jpg'},
+					{title:'img2',url:'static/images/slide.jpg'},
 				],
 				msg : [
 					'uni-app行业峰会频频亮相，开发者反响热烈',
@@ -76,14 +79,14 @@
 					'36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章'
 				],
 				navList:[
-					{title:'值班管理',url:'/static/icons/ic_duty.svg'},
-					{title:'巡检管理',url:'/static/icons/ic_polling.svg'},
-					{title:'工单管理',url:'/static/icons/ic_workorder.svg'},
-					{title:'资产管理',url:'/static/icons/ic_property.svg'},
-					{title:'我的关注',url:'/static/icons/ic_myfocus.svg'},
-					{title:'知识管理',url:'/static/icons/ic_knowledge.svg'},
-					{title:'容量管理',url:'/static/icons/ic_capacity.svg'},
-					{title:'更多',url:'/static/icons/ic_more.svg'},
+					{title:'值班管理',url:'static/icons/ic_duty.svg'},
+					{title:'巡检管理',url:'static/icons/ic_polling.svg'},
+					{title:'工单管理',url:'static/icons/ic_workorder.svg'},
+					{title:'资产管理',url:'static/icons/ic_property.svg'},
+					{title:'我的关注',url:'static/icons/ic_myfocus.svg'},
+					{title:'知识管理',url:'static/icons/ic_knowledge.svg'},
+					{title:'容量管理',url:'static/icons/ic_capacity.svg'},
+					{title:'更多',url:'static/icons/ic_more.svg'},
 				],
 				eventList:[
 					{id:'1',title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
@@ -100,7 +103,7 @@
 				uni.navigateTo({
 					url: "/pages/workOrder/detail?detail=" + encodeURIComponent(JSON.stringify(item))
 				})
-			}
+			},
 		}
 	}
 </script>

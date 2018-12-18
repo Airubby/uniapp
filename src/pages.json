@@ -1,6 +1,12 @@
 {
   "pages": [
     {
+      "path": "pages/devinfo/index",
+      "style": {
+        "navigationBarTitleText": "设备查询"
+      }
+    },
+    {
       "path": "pages/index/index",
       "style": {
         "app-plus": {
@@ -21,12 +27,7 @@
         "navigationBarTitleText": "告警"
       }
     },
-    {
-      "path": "pages/devinfo/index",
-      "style": {
-        "navigationBarTitleText": "设备查询"
-      }
-    },
+    
     {
       "path": "pages/mine/index",
       "style": {

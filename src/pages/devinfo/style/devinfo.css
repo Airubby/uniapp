@@ -1,0 +1,24 @@
+
+.topbox_con{
+  display: flex;
+  flex-wrap:wrap;
+}
+.topbox_con>view{
+  width: 50%;
+}
+.topbox_title img,
+.topbox_img img{
+  width:24upx;
+  height: 24upx;
+  vertical-align: middle;
+  margin-right: 5upx;
+}
+.topbox_text:before{
+  content:"";
+  display:inline-block;
+  margin-right: 5upx;
+  border:4upx solid #A3F0FF;
+  width:10upx;
+  height: 10upx;
+  border-radius: 50%;
+}

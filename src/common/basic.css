@@ -5,17 +5,26 @@ body{
 .bgwhite{
 	background: #ffffff;
 }
+.heightFull{
+	height: 100%;
+}
 .fl{
 	float: left;
 }
 .fr{
 	float: right;
 }
+.pd60{
+	padding-top: 60upx;
+}
 .mb20{
 	margin-bottom: 20upx;
 }
 .mb10{
 	margin-bottom: 10upx;
+}
+uni-page-body, uni-page-refresh{
+	height: 100%;
 }
 .content{
 	padding: 0 20upx;

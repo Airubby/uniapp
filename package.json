@@ -19,6 +19,7 @@
     "@dcloudio/uni-mp-alipay": "*",
     "@dcloudio/uni-mp-baidu": "*",
     "@dcloudio/uni-mp-weixin": "*",
+    "echarts": "^4.2.0-rc.2",
     "flyio": "^0.6.2",
     "megalo": "^0.5.4",
     "vue": "^2.5.17",
