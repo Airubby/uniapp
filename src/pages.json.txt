@@ -1,0 +1,6 @@
+pages数组中第一项表示应用启动页
+"enablePullDownRefresh":true   开启下拉刷新
+"navigationStyle":"default"  有顶部title及返回展示
+"app-plus": {
+      "titleNView": false  //  false 在App去除原生导航栏后，小程序端侧仍保有原生导航栏。
+  },

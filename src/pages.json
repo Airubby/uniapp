@@ -1,20 +1,22 @@
 {
   "pages": [
     {
+      "path": "pages/index/index",
+      "style": {
+        "app-plus": {
+            "titleNView": false
+        },
+        "navigationBarTitleText": "首页",
+        "enablePullDownRefresh":true   
+      }
+    },
+    {
       "path": "pages/devinfo/index",
       "style": {
         "navigationBarTitleText": "设备查询"
       }
     },
-    {
-      "path": "pages/index/index",
-      "style": {
-        "app-plus": {
-            "titleNView": true
-        },
-        "navigationBarTitleText": "首页"
-      }
-    },
+    
     {
       "path": "pages/classify/index",
       "style": {
@@ -34,6 +36,36 @@
         "navigationBarTitleText": "我的"
       }
     },
+
+    {
+      "path": "pages/env/index",
+      "style": {
+        "navigationBarTitleText": "能效"
+      }
+    },
+
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationStyle":"default"
+      }
+    },
+    {
+      "path": "pages/login/pwd",
+      "style": {
+        "navigationBarTitleText": "修改密码",
+        "navigationStyle":"default"
+      }
+    },
+    {
+      "path": "pages/login/reg",
+      "style": {
+        "navigationBarTitleText": "注册",
+        "navigationStyle":"default"
+      }
+    },
+
     {
       "path": "pages/workOrder/detail",
       "style": {

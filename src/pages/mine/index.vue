@@ -1,40 +1,43 @@
 <template>
 	<view class="content">
-        <image class="logo" src="/static/logo.png"></image>
-		<view>
-            <text class="title">{{title}}</text>
+        <view class="btn-row">
+            <button v-if="!hasLogin" type="primary" class="primary" @tap="bindLogin">登录</button>
+            <button v-if="hasLogin" type="default" @tap="bindLogout">退出登录</button>
         </view>
-	</view>
+    </view>
 </template>
 
 <script>
+import {
+        mapState,
+        mapMutations
+    } from 'vuex'
 	export default {
-		data() {
-			return {
-				title: '我的'
-			}
-		},
-		onLoad() {
-
-		},
-		methods: {
-
-		}
+		computed: {
+            ...mapState(['hasLogin', 'forcedLogin'])
+        },
+        methods: {
+            ...mapMutations(['logout']),
+            bindLogin() {
+                uni.navigateTo({
+                    url: '/pages/login/index',
+                });
+            },
+            bindLogout() {
+                this.logout();
+                /**
+                 * 如果需要强制登录跳转回登录页面
+                 */
+                if (this.forcedLogin) {
+                    uni.reLaunch({
+                        url: '/pages/login/index',
+                    });
+                }
+            }
+        }
 	}
 </script>
 
 <style>
-	.content {
-		text-align: center;
-		height: 400upx;
-	}
-    .logo{
-        height: 200upx;
-        width: 200upx;
-        margin-top: 200upx;
-    }
-	.title {
-		font-size: 36upx;
-		color: #8f8f94;
-	}
+
 </style>

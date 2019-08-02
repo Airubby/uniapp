@@ -26,12 +26,12 @@
 		<view class="content mb20">
 			<view class="bgwhite uni-nav">
 				<view class="uni-nav-con" v-for="(nav,index) in navList" :key="index">
-					<view>
+					<navigator :url="nav.path">
 						<view class="image-view">
 							<img class="uni-nav-image" :src="nav.url"></img>
 						</view>
 						<text class="uni-nav-title">{{nav.title}}</text>
-					</view>
+					</navigator>
 				</view>
 			</view>
 		</view>
@@ -66,7 +66,37 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 	export default {
+		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
+		onLoad() {
+			if (!this.hasLogin) {
+                uni.showModal({
+                    title: '未登录',
+                    content: '您未登录，需要登录后才能继续',
+                    /**
+                     * 如果需要强制登录，不显示取消按钮
+                     */
+                    showCancel: !this.forcedLogin,
+                    success: (res) => {
+                        if (res.confirm) {
+							/**
+							 * 如果需要强制登录，使用reLaunch方式
+							 */
+                            if (this.forcedLogin) {
+                                uni.reLaunch({
+                                    url: '/pages/login/index'
+                                });
+                            } else {
+                                uni.navigateTo({
+                                    url: '/pages/login/index'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+		},
 		data() {
 			return {
 				itemList: [
@@ -79,14 +109,14 @@
 					'36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章'
 				],
 				navList:[
-					{title:'值班管理',url:'static/icons/ic_duty.svg'},
-					{title:'巡检管理',url:'static/icons/ic_polling.svg'},
-					{title:'工单管理',url:'static/icons/ic_workorder.svg'},
-					{title:'资产管理',url:'static/icons/ic_property.svg'},
-					{title:'我的关注',url:'static/icons/ic_myfocus.svg'},
-					{title:'知识管理',url:'static/icons/ic_knowledge.svg'},
-					{title:'容量管理',url:'static/icons/ic_capacity.svg'},
-					{title:'更多',url:'static/icons/ic_more.svg'},
+					{title:'值班管理',url:'static/icons/ic_duty.svg',path:'/pages/env/index'},
+					{title:'巡检管理',url:'static/icons/ic_polling.svg',path:'/pages/env/index'},
+					{title:'工单管理',url:'static/icons/ic_workorder.svg',path:'/pages/env/index'},
+					{title:'资产管理',url:'static/icons/ic_property.svg',path:'/pages/env/index'},
+					{title:'我的关注',url:'static/icons/ic_myfocus.svg',path:'/pages/env/index'},
+					{title:'知识管理',url:'static/icons/ic_knowledge.svg',path:'/pages/env/index'},
+					{title:'容量管理',url:'static/icons/ic_capacity.svg',path:'/pages/env/index'},
+					{title:'更多',url:'static/icons/ic_more.svg',path:'/pages/env/index'},
 				],
 				eventList:[
 					{id:'1',title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
@@ -94,9 +124,6 @@
 					{id:'3',title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'},
 				]
 			}
-		},
-		onLoad() {
-
 		},
 		methods: {
 			goDetail:function(item){
