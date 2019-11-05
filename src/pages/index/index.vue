@@ -97,6 +97,12 @@ import { mapState } from 'vuex'
                 });
             }
 		},
+		onReachBottom() {
+			console.log('上拉加载刷新');
+		},
+		onPullDownRefresh() {
+			console.log('下拉刷新');
+		},
 		data() {
 			return {
 				itemList: [
