@@ -15,7 +15,7 @@
 		</view>
 		<view class="uni-swiper-msg bgwhite mb20">
 			<view class="uni-swiper-msg-icon">
-				<img src="/static/icons/ic-notification.svg"></img>
+				<img src="static/icons/ic-notification.svg"></img>
 			</view>
 			<swiper vertical="true" autoplay="true" circular="true" interval="3000">
 				<swiper-item v-for="(item, index) in msg" :key="index" class="uni-swiper-msg-con">

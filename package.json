@@ -15,29 +15,25 @@
     "build:mp-alipay": "cross-env NODE_ENV=production UNI_PLATFORM=mp-alipay vue-cli-service uni-build"
   },
   "dependencies": {
-    "@dcloudio/uni-h5": "*",
-    "@dcloudio/uni-mp-alipay": "*",
-    "@dcloudio/uni-mp-baidu": "*",
-    "@dcloudio/uni-mp-weixin": "*",
-    "echarts": "^4.2.0-rc.2",
-    "flyio": "^0.6.2",
+    "@dcloudio/uni-h5": "^0.9.0",
+    "@dcloudio/uni-mp-alipay": "0.0.827",
+    "@dcloudio/uni-mp-baidu": "0.0.857",
+    "@dcloudio/uni-mp-weixin": "0.0.973",
+    "@dcloudio/uni-template-compiler": "^2.0.0-23720191024001",
+    "echarts": "^4.4.0",
+    "flyio": "^0.6.14",
     "megalo": "^0.5.4",
-    "vue": "^2.5.17",
-    "vuex": "^3.0.1"
+    "vue": "^2.6.10",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "@dcloudio/uni-cli-shared": "*",
-    "@dcloudio/vue-cli-plugin-uni": "*",
-    "@dcloudio/webpack-uni-mp-loader": "*",
-    "@dcloudio/webpack-uni-pages-loader": "*",
+    "@dcloudio/uni-cli-shared": "^0.2.994",
+    "@dcloudio/vue-cli-plugin-uni": "^0.9.538",
+    "@dcloudio/webpack-uni-mp-loader": "^0.3.644",
+    "@dcloudio/webpack-uni-pages-loader": "^0.2.875",
     "@vue/cli-plugin-babel": "3.1.1",
-    "@vue/cli-service": "^3.0.1",
-    "cross-env": "^5.2.0",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "browserslist": [
-    "last 3 versions",
-    "Android >= 4.4",
-    "ios >= 8"
-  ]
+    "@vue/cli-service": "^3.12.1",
+    "cross-env": "^5.2.1",
+    "vue-template-compiler": "^2.6.10"
+  }
 }

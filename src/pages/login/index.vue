@@ -60,7 +60,7 @@
                                 if (~filters.indexOf(res.provider[i])) {
                                     this.providerList.push({
                                         value: res.provider[i],
-                                        image: '@/static/img/' + res.provider[i] + '.png'
+                                        image: '@static/img/' + res.provider[i] + '.png'
                                     });
                                 }
                             }
