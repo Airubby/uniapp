@@ -15,25 +15,25 @@ body{
 	float: right;
 }
 .pd60{
-	padding-top: 60upx;
+	padding-top: 60px;
 }
 .mb20{
-	margin-bottom: 20upx;
+	margin-bottom: 20px;
 }
 .mb10{
-	margin-bottom: 10upx;
+	margin-bottom: 10px;
 }
 uni-page-body, uni-page-refresh{
 	height: 100%;
 }
 .content{
-	padding: 0 20upx;
+	padding: 0 20px;
 }
 .fontcolor999{
 	color: #999;
 }
 .mr10{
-	margin-right: 10upx;
+	margin-right: 10px;
 }
 .fontbg{
 	color:#50C984;

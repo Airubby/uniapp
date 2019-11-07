@@ -34,7 +34,7 @@
 </template>
 
 <script>
-	import uniSwiperTab from '@/components/uni-swiper-tab.vue';
+	import uniSwiperTab from '@/components/uni-swiper-tab/index.vue';
 	import air from './air.vue';
 	import env from './env.vue';
 	import power from './power.vue';
@@ -69,7 +69,7 @@
 	
 	.top{
 		color:#fff;
-		height:40upx;
+		height:40px;
 		text-align: center;
 	}
 	.devinfo{
@@ -80,18 +80,18 @@
 	
 	.topbox{
 		background: #01738E;
-		padding: 20upx;
-		height: 170upx;
-		border-radius: 10upx;
+		padding: 20px;
+		height: 170px;
+		border-radius: 10px;
 	}
 	.content{
-		height: calc(100% - 100upx);
+		height: calc(100% - 100px);
 	}
 	.uni-tab{
-		height: calc(100% - 210upx); 
+		height: calc(100% - 210px); 
 	}
 	@import "./style/devinfo.css";
-	@media ( min-width : 750upx) {
+	@media ( min-width : 750px) {
 		.top{color:#f00}
 	}
 </style>

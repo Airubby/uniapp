@@ -25,15 +25,15 @@
 <style>
 	.content {
 		text-align: center;
-		height: 400upx;
+		height: 400px;
 	}
     .logo{
-        height: 200upx;
-        width: 200upx;
-        margin-top: 200upx;
+        height: 200px;
+        width: 200px;
+        margin-top: 200px;
     }
 	.title {
-		font-size: 36upx;
+		font-size: 36px;
 		color: #8f8f94;
 	}
 </style>

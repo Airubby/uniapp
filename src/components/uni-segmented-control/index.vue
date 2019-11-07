@@ -27,6 +27,7 @@
 			styleType: {
 				type: String,
 				default: 'button'
+				//text,button
 			}
 		},
 		data() {
@@ -95,33 +96,33 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		width: 75%;
-		font-size: 28upx;
-		border-radius: 10upx;
+		width: 100%;
+		font-size: 16px;
+		border-radius: 3px;
 		box-sizing: border-box;
 		margin: 0 auto;
 		overflow: hidden;
 	}
 
 	.segmented-control.button {
-		border: 2upx solid;
+		border: 2px solid;
 	}
 
 	.segmented-control.text {
 		border: 0;
-		border-radius: 0upx;
+		border-radius: 0px;
 	}
 
 
 	.segmented-control-item {
 		flex: 1;
 		text-align: center;
-		line-height: 60upx;
+		line-height: 40px;
 		box-sizing: border-box;
 	}
 
 	.segmented-control-item.button {
-		border-left: 1upx solid;
+		border-left: 1px solid;
 	}
 
 	.segmented-control-item.text {

@@ -143,31 +143,31 @@ import { mapState } from 'vuex'
 
 <style>
 	.top{
-		height: 60upx;
-		padding: 60upx 40upx 20upx 40upx;
+		height: 60px;
+		padding: 60px 40px 20px 40px;
 		position:relative;
 	}
 	.ic_image,
 	.ic_image img{
-		width: 40upx;
-		height: 40upx;
+		width: 40px;
+		height: 40px;
 	}
 	.ic_message{
-		margin-left: 25upx;
+		margin-left: 25px;
 	}
 	.ic_logo{
 		position:absolute;
 		left: 50%;
-		margin-left: -110upx;
-		width: 220upx;
-		height: 40upx;
+		margin-left: -110px;
+		width: 220px;
+		height: 40px;
 	}
 	.ic_logo img{
 		width:100%;
-		height:40upx;
+		height:40px;
 	}
 	.uni-slide uni-swiper{
-		height: 450upx;
+		height: 450px;
 	}
 	.uni-slide img{
 		width:100%;
@@ -179,9 +179,9 @@ import { mapState } from 'vuex'
 	}
 	.uni-swiper-msg{
 		width: auto;
-		height: 60upx;
-		padding-left: 20upx;
-		padding-right: 20upx;
+		height: 60px;
+		padding-left: 20px;
+		padding-right: 20px;
 	}
 	.uni-swiper-msg-con{
 		overflow:hidden;
@@ -190,24 +190,24 @@ import { mapState } from 'vuex'
 		 display: flex;
 		 flex-wrap:wrap;
 		 justify-content:center;
-		 padding-top: 15upx;
+		 padding-top: 15px;
 	}
 	.uni-nav-con{
 		width: 25%;
 		text-align:center;
-		margin-bottom: 15upx;
+		margin-bottom: 15px;
 	}
 	.image-view{
-		width: 60upx;
-		height: 60upx;
-		margin: 10upx auto;
+		width: 60px;
+		height: 60px;
+		margin: 10px auto;
 	}
 	.image-view img{
 		width:100%;
 		height: 100%;
 	}
 	.event-box{
-		padding: 0 20upx;
+		padding: 0 20px;
 	}
 	.event-box-top,
 	.event-box-con{
@@ -216,20 +216,20 @@ import { mapState } from 'vuex'
 	}
 	.event-box-con{
 		color:#666;
-		padding-bottom: 20upx;
+		padding-bottom: 20px;
 	}
 	.event-box-toptitle{
 		max-width: 65%;
-		font-size:28upx;
+		font-size:28px;
 		overflow:hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		padding: 10upx 0;
+		padding: 10px 0;
 	}
 	.type{
-		margin: 15upx 5upx;
-		padding: 0 10upx;
-		border-radius: 10upx;
+		margin: 15px 5px;
+		padding: 0 10px;
+		border-radius: 10px;
 	}
 	.event-box-conleft{
 		width: 80%;
@@ -237,13 +237,13 @@ import { mapState } from 'vuex'
 	.event-box-conright{
 		width: 20%;
 		text-align:right;
-		padding-top: 20upx;
+		padding-top: 20px;
 		color:#6FD8A5;
-		font-size: 28upx;
+		font-size: 28px;
 	}
 	.alarmType{
-		width: 30upx;
-		height: 50upx;
+		width: 30px;
+		height: 50px;
 		position:absolute;
 		right:0;
 		top:0;
@@ -254,9 +254,9 @@ import { mapState } from 'vuex'
 		height:0;
 		font-size:0;
 		line-height:0;
-		border-left:15upx solid transparent;
-		border-right: 15upx solid transparent;
-		border-bottom:15upx solid #fff;
+		border-left:15px solid transparent;
+		border-right: 15px solid transparent;
+		border-bottom:15px solid #fff;
 		position:absolute;
 		left:0;
 		bottom:0;

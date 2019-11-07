@@ -202,6 +202,6 @@
 <style>
 	.echarts{
 		width: 100%;
-		height: 250upx;
+		height: 250px;
 	}
 </style>

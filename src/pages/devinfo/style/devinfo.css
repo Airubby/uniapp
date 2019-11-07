@@ -8,17 +8,17 @@
 }
 .topbox_title img,
 .topbox_img img{
-  width:24upx;
-  height: 24upx;
+  width:24px;
+  height: 24px;
   vertical-align: middle;
-  margin-right: 5upx;
+  margin-right: 5px;
 }
 .topbox_text:before{
   content:"";
   display:inline-block;
-  margin-right: 5upx;
-  border:4upx solid #A3F0FF;
-  width:10upx;
-  height: 10upx;
+  margin-right: 5px;
+  border:4px solid #A3F0FF;
+  width:10px;
+  height: 10px;
   border-radius: 50%;
 }

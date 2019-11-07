@@ -77,35 +77,28 @@
 	.uni-table-view-cell{
     position: relative;
     overflow: hidden;
-    padding: 11upx 15upx;
+    padding: 10px 15px;
     -webkit-touch-callout: none;
   }
   .uni-table-view-cell>.uni-slider-left, .uni-table-view-cell>.uni-slider-right {
     position: absolute;
     top: 0;
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     height: 100%;
   }
   .uni-table-view-cell>.uni-slider-left {
       left: 0;
-      -webkit-transition: -webkit-transform 0ms ease;
       transition: transform 0ms ease;
-      -webkit-transform: translateX(-100%);
       transform: translateX(-100%);
   }
   .uni-table-view-cell>.uni-slider-right {
       right: 0;
-      -webkit-transition: -webkit-transform 0ms ease;
       transition: transform 0ms ease;
-      -webkit-transform: translateX(100%);
       transform: translateX(100%);
   }
   .uni-table-view-cell>.uni-slider-handle, 
   .uni-table-view-cell>.uni-slider-left, 
   .uni-table-view-cell>.uni-slider-right {
-      -webkit-transition: -webkit-transform 300ms ease;
       transition: transform 300ms ease;
   }
 </style>
