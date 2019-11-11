@@ -1,0 +1,62 @@
+.boolean-x-from{
+	position: relative;
+	height:60px;
+	background:red;
+}
+.booleen-form-item{
+	position: relative;
+	margin-bottom: 20upx;
+}
+.booleen-x-input {
+	border: 1px solid transparent;
+	position: relative;
+	width: 100%;
+	margin-bottom: 25px;
+	textarea,input{
+		background: #fff;
+	}
+	//嵌套的booleen-x-input没有下间距
+   .booleen-x-input{
+	   margin-bottom: 0;
+   }
+	&.booleen-x-error-input {
+		border: 1px solid red;
+		color: red;
+		//raido checkbox类型不需要边框
+		&.booleen-x-error-input-no-border {
+			color: red;
+			border:none;
+		}
+		
+	}
+	.boolean-x-error-tip{
+		position: absolute;
+		left: 0;
+		bottom: -22px;
+		&.booleen-x-error{
+		color: red;
+	    }
+		
+	}
+	
+	
+	//禁用样式
+	&.booleen-x-input-disabled {
+		color: #c0c4cc;
+		//checkbox的label样式
+        .booleen-x-input-label{
+			color: #c0c4cc;
+		}
+		//input类型的样式
+		.uni-input,
+		input,textarea {
+			background-color: #e4e7ed;
+		}
+
+		/* radio的样式 */
+		.uni-radio-input {
+			opacity: 0.2;
+		}
+	}
+
+}

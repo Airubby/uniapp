@@ -28,6 +28,7 @@
 
 <script>
     import service from '@/service/index.js';
+    // npm i async-validator-uniapp --save
     import {
         mapState,
         mapMutations

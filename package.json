@@ -20,8 +20,11 @@
     "@dcloudio/uni-mp-baidu": "0.0.857",
     "@dcloudio/uni-mp-weixin": "0.0.973",
     "@dcloudio/uni-template-compiler": "^2.0.0-23720191024001",
+    "async-validator": "^3.2.1",
     "echarts": "^4.4.0",
     "flyio": "^0.6.14",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
     "megalo": "^0.5.4",
     "vue": "^2.6.10",
     "vuex": "^3.1.1"

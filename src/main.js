@@ -14,6 +14,12 @@ Vue.prototype.$echarts =echarts
 Vue.prototype.$store = store
 
 
+// import aiForm from '@/components/ai-form-group/ai-form/index.vue'
+// import aiInput from '@/components/ai-form-group/ai-input/index.vue'
+// Vue.component("ai-form", aiForm)
+// Vue.component("ai-input", aiInput)
+
+
 App.mpType = 'app'
 
 const app = new Vue({
