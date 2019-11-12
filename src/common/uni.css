@@ -8,6 +8,9 @@
 .uni-modal .uni-modal__hd{
 	padding: 30px 15px 20px;
 }
+.uni-popup__wrapper-box{
+	width: 92%;
+}
 /*通用 */
 progress, checkbox-group{
 	width: 100%;
