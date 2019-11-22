@@ -1,39 +1,43 @@
 <template>
 	<view class="content">
-		<view>
-            <text class="title">{{title}}</text>
-        </view>
+		<view class="uni-padding-wrap">
+			<uni-segmented-control :current="current" :values="items" v-on:clickItem="onClickItem" activeColor="#007aff"></uni-segmented-control>
+		</view>
+		<view class="content">
+			<now-event v-if="current === 0"></now-event>
+			<his-event v-if="current === 1"></his-event>
+			<threshold v-if="current === 2"></threshold>
+		</view>
 	</view>
 </template>
 
 <script>
+import uniSegmentedControl from '@/components/uni-segmented-control/index.vue';
+	import nowEvent from './type-one.vue';
+	import hisEvent from './type-two.vue';
+	import threshold from './type-three.vue';
 	export default {
+		components: { nowEvent,hisEvent,threshold,uniSegmentedControl},
 		data() {
 			return {
-				title: '设备分类'
+				current:0,
+				items: [
+					'分类一',
+					'分类二',
+					'分类三'
+				],
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+			onClickItem(index) {
+				if (this.current !== index) {
+					this.current = index;
+				}
+			},
 		}
 	}
 </script>
 
-<style>
-	.content {
-		text-align: center;
-		height: 400px;
-	}
-    .logo{
-        height: 200px;
-        width: 200px;
-        margin-top: 200px;
-    }
-	.title {
-		font-size: 36px;
-		color: #8f8f94;
-	}
-</style>
