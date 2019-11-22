@@ -23,14 +23,16 @@
 		@cancel="onSelected" />
 		<view style="margin-top: 15px;">自定义base64字体图标使用</view>
 		<ai-icons color="#0099cc" type="check" size="36"></ai-icons>
+		<ai-steps activeColor="#ff0000" :options="list1" :active="active" @stepClick="stepClick"></ai-steps>
 	</view>
 </template>
 
 <script>
 	import aiDatePicker from '@/components/ai-ui/ai-date-picker/index.vue' 
 	import aiIcons from "@/components/ai-ui/ai-icons/index.vue"
+	import aiSteps from '@/components/ai-ui/ai-steps/index.vue'
 	export default {
-		components:{aiDatePicker,aiIcons},
+		components:{aiDatePicker,aiIcons,aiSteps},
 		data() {
             return {
 				date: '2019/01/01',
@@ -42,7 +44,15 @@
 					showPicker: false,
 					type: 'rangetime',
 					value: ''
-				}
+				},
+				active:1,
+				list1: [{
+					title: '事件一'
+				}, {
+					title: '事件二'
+				}, {
+					title: '事件3'
+				}],
             }
         },
 		methods:{
@@ -60,7 +70,10 @@
                     //原始的Date对象
                     console.log('date => ' + e.date);
                 }
-            }
+			},
+			stepClick:function(item){
+				this.active=item.index;
+			}
 		}
 	}
 </script>
