@@ -13,7 +13,24 @@
 		created(){
 			this.aesInfo=this.$util.Encrypt(this.Info);
 			this.backInfo=this.$util.Decrypt(this.aesInfo);
+			console.log(233333333333333)
+			this.$api.get("/getData",{showLoading: true},r=>{
+				console.log(r)
+			});
+			this.$api.post("/postData",{
+				showLoading: true,
+				name:"123123",
+				dataqe:[{
+					"name":"123",user:"222"
+				}],
+				obj:{
+					sdd:"23"
+				}
+			},r=>{
+				console.log(r)
+			});
 		},
+	
 		data() {
 			return {
 				Info:"admin",
@@ -21,9 +38,7 @@
 				backInfo:""
 			}
 		},
-		onLoad() {
-
-		},
+		
 		methods: {
 			
 		},
