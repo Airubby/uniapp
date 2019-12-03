@@ -1,6 +1,6 @@
 <template>
 	<checkbox-group @change="checkboxChange" class="checkbox-group">
-		<label v-for="item in items" :key="item.value">
+		<label v-for="item in items" :key="item.value" class="checkbox-lable">
 			<view class="checkbox-group-btn">
 				<checkbox :value="item.value" :checked="value.indexOf(item.value)!=-1" />
 			</view>
@@ -43,6 +43,11 @@
 <style scoped>
 	.checkbox-group{
 		display:flex;
+		flex-wrap:wrap;
+	}
+	.checkbox-lable{
+		margin-right:5px;
+		margin-bottom: 5px;
 	}
 	.checkbox-group-btn{
 		display:none;

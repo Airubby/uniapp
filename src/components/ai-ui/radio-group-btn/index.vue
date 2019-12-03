@@ -1,6 +1,6 @@
 <template>
     <radio-group @change="radioChange" class="radio-group">
-        <label v-for="(item, index) in items" :key="item.value">
+        <label v-for="(item, index) in items" :key="item.value" class="radio-label">
             <view class="radio-group-btn">
                 <radio :value="item.value" :checked="item.value === value" />
             </view>
@@ -43,6 +43,11 @@
 <style scoped>
 	.radio-group{
 		display:flex;
+		flex-wrap:wrap;
+	}
+	.radio-label{
+		margin-right:5px;
+		margin-bottom: 5px;
 	}
 	.radio-group-btn{
 		display:none;

@@ -19,8 +19,8 @@
 </template>
 
 <script>
-	import radioGroupBtn from '@/components/radio-group-btn/index.vue'
-	import checkboxGroupBtn from '@/components/checkbox-group-btn/index.vue'
+	import radioGroupBtn from '@/components/ai-ui/radio-group-btn/index.vue'
+	import checkboxGroupBtn from '@/components/ai-ui/checkbox-group-btn/index.vue'
 	import {aiForm,aiInput,aiTextarea,aiPicker} from '@/components/ai-form-group/index.js'
 	export default {
 		components: {radioGroupBtn,checkboxGroupBtn,aiForm,aiInput,aiTextarea,aiPicker},
