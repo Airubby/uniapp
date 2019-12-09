@@ -396,14 +396,16 @@
 											c=index;
 										}
 									})
-									dval=[a,b,c];
-								}else{
-									dval=[a,b];
 								}
 							}
 						})
 					}
 				})
+				if(!_this.hideArea){
+					dval=[a,b,c];
+				}else{
+					dval=[a,b];
+				}
 				// provinces.map((v,k)=>{
 				// 	if(useCode?v.value==province:v.label==province){
 				// 		a=k;
