@@ -12,7 +12,7 @@
 		<view>
 			<ai-picker
 			mode="region" 
-			:hideArea="true"
+			:hideArea="false"
 			:areaCode="['130000','130200','130204']"
 			@confirm="onConfirm"
 			ref="picker" 

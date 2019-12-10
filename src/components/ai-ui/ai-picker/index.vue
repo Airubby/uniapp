@@ -383,6 +383,7 @@
 				let city=value[1];
 				let a=0,b=0,c=0,dval=[];
 				let _this=this;
+				//省市区在一起的js用
 				provinceCityArea.map((v,k)=>{
 					if(useCode?v.value==province:v.label==province){
 						a=k;
@@ -406,6 +407,7 @@
 				}else{
 					dval=[a,b];
 				}
+				//省市区分开的js用
 				// provinces.map((v,k)=>{
 				// 	if(useCode?v.value==province:v.label==province){
 				// 		a=k;
@@ -748,16 +750,17 @@
 						}
 						break;
 					case "region":
+						//省市区在一起的js用
+						console.log(111111111)
 						province=_this.data.provinces[arr[0]]||_this.data.provinces[0];
 						city=_this.data.citys[arr[1]]||_this.data.citys[0];
 						if(!_this.hideArea){
 							area=_this.data.areas[arr[2]]||_this.data.areas[0];
 						}
-						
 						if(province.label!=checkArr[0]){
-							_this.data.citys = citys[arr[0]]||citys[0];
+							_this.data.citys = provinceCityArea[arr[0]].cityList||provinceCityArea[0].cityList;
 							if(!_this.hideArea){
-								_this.data.areas = areas[arr[0]][0]||areas[0][0];
+								_this.data.areas = provinceCityArea[arr[0]].cityList[arr[1]].areaList||provinceCityArea[0].cityList[0].areaList;
 							}
 							arr[1] = 0;
 							arr[2] = 0;
@@ -767,7 +770,7 @@
 							}
 						};
 						if(city.label!=checkArr[1]&&!_this.hideArea){
-							_this.data.areas = areas[arr[0]][arr[1]]||areas[0][0];
+							_this.data.areas = provinceCityArea[arr[0]].cityList[arr[1]].areaList||provinceCityArea[0].cityList[0].areaList;
 							arr[2]=0;
 							area=_this.data.areas[arr[2]]||_this.data.areas[0];
 						};
@@ -787,6 +790,48 @@
 							];
 							_this.resultStr=province.label+city.label;
 						};
+
+						//省市区分开的js用
+						// province=_this.data.provinces[arr[0]]||_this.data.provinces[0];
+						// city=_this.data.citys[arr[1]]||_this.data.citys[0];
+						// if(!_this.hideArea){
+						// 	area=_this.data.areas[arr[2]]||_this.data.areas[0];
+						// }
+						
+						// if(province.label!=checkArr[0]){
+						// 	_this.data.citys = citys[arr[0]]||citys[0];
+						// 	if(!_this.hideArea){
+						// 		_this.data.areas = areas[arr[0]][0]||areas[0][0];
+						// 	}
+						// 	arr[1] = 0;
+						// 	arr[2] = 0;
+						// 	city=_this.data.citys[arr[1]]||_this.data.citys[0];
+						// 	if(!_this.hideArea){
+						// 		area=_this.data.areas[arr[2]]||_this.data.areas[0];
+						// 	}
+						// };
+						// if(city.label!=checkArr[1]&&!_this.hideArea){
+						// 	_this.data.areas = areas[arr[0]][arr[1]]||areas[0][0];
+						// 	arr[2]=0;
+						// 	area=_this.data.areas[arr[2]]||_this.data.areas[0];
+						// };
+						// if(!_this.hideArea){
+						// 	_this.checkArr=[province.label,city.label,area.label];
+						// 	_this.checkValue=[
+						// 		_this.data.provinces[arr[0]]?_this.data.provinces[arr[0]].value:_this.data.provinces[0].value,
+						// 		_this.data.citys[arr[1]]?_this.data.citys[arr[1]].value:_this.data.citys[0].value,
+						// 		_this.data.areas[arr[2]]?_this.data.areas[arr[2]].value:_this.data.areas[0].value
+						// 	];
+						// 	_this.resultStr=province.label+city.label+area.label;
+						// }else{
+						// 	_this.checkArr=[province.label,city.label];
+						// 	_this.checkValue=[
+						// 		_this.data.provinces[arr[0]]?_this.data.provinces[arr[0]].value:_this.data.provinces[0].value,
+						// 		_this.data.citys[arr[1]]?_this.data.citys[arr[1]].value:_this.data.citys[0].value
+						// 	];
+						// 	_this.resultStr=province.label+city.label;
+						// };
+
 						break;
 					case "selector":
 						_this.checkArr=_this.data[arr[0]]||_this.data[_this.data.length-1];
@@ -825,20 +870,24 @@
 							dVal=_this.getRegionVal(_this.defaultVal);
 						}
 						if(_this.hideArea){
+							//省市区在一起的js用
 							data={
 								provinces:provinceCityArea,
 								citys:provinceCityArea[dVal[0]].cityList
 							}
+							//省市区分开的js用
 							// data={
 							// 	provinces:provinces,
 							// 	citys:citys[dVal[0]]
 							// };
 						}else{
+							//省市区在一起的js用
 							data={
 								provinces:provinceCityArea,
 								citys:provinceCityArea[dVal[0]].cityList,
 								areas:provinceCityArea[dVal[0]].cityList[dVal[1]].areaList
 							}
+							//省市区分开的js用
 							// data={
 							// 	provinces:provinces,
 							// 	citys:citys[dVal[0]],
