@@ -128,7 +128,7 @@
 			<view class="ai-picker-view" v-if="mode=='selector'">
 				<picker-view :indicator-style="itemHeight" :value="pickVal" @change="bindChange" @touchstart="touchStart" @touchend="touchEnd">
 					<picker-view-column>
-						<view class="ai-picker-item" v-for="(item,index) in data" :key="index">{{item.label}}</view>
+						<view class="ai-picker-item" v-for="(item,index) in data" :key="index">{{item[params.label]}}</view>
 					</picker-view-column>
 				</picker-view>
 			</view>
@@ -251,6 +251,16 @@
 				type:Array,
 				default(){
 					return [];
+				}
+			},
+			//以下参数仅对mode==selector有效
+			params:{
+				type:Object,
+				default(){
+					return {
+						label: 'lable',
+						value: 'value',
+					}
 				}
 			},
 			//以下参数仅对mode==limit有效
@@ -833,7 +843,8 @@
 						break;
 					case "selector":
 						_this.checkArr=_this.data[arr[0]]||_this.data[_this.data.length-1];
-						_this.resultStr=_this.data[arr[0]]?_this.data[arr[0]].label:_this.data[_this.data.length-1].label;
+						_this.resultStr=_this.data[arr[0]]?_this.data[arr[0]][_this.params['label']]:_this.data[_this.data.length-1][_this.params['label']];
+						// _this.resultStr=_this.data[arr[0]]?_this.data[arr[0]].label:_this.data[_this.data.length-1].label;
 						break;	
 				}
 				_this.$nextTick(()=>{
@@ -897,7 +908,7 @@
 						let idx=0;
 						data=_this.selectList;
 						_this.selectList.map((v,k)=>{
-							if(v.label==this.defaultVal[0]){
+							if(v[_this.params['value']]==this.defaultVal[0]){
 								idx=k;
 							}
 						})
@@ -1000,7 +1011,7 @@
 						break;
 					case "selector":
 						_this.checkArr=data[dVal[0]]||data[data.length-1];
-						_this.resultStr=data[dVal[0]].label||data[data.length-1].label;
+						_this.resultStr=data[dVal[0]][_this.params['label']]||data[data.length-1][_this.params['label']];
 						break;
 				}
 				_this.$nextTick(()=>{

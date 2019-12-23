@@ -50,7 +50,7 @@
 ## Example
 
 mode=linkage(动态数据二级、三级联动)
-<w-picker
+<ai-picker
     mode="linkage"
     :level="2"
     :value="['10','1012']"
@@ -59,10 +59,10 @@ mode=linkage(动态数据二级、三级联动)
     ref="linkage"
     :linkList='[{label:"aaa",value:"10",children:[{label:"aaa",value:"10"}]}]'
     themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 mode=range(时间段选择例2019-06-08至2019年09-08)；默认值defaultVal为7个值的数组，第四位值'-'代表中间的分隔符
-<w-picker 
+<ai-picker 
 mode="range" 
 startYear="2017" 
 endYear="2030"
@@ -71,10 +71,10 @@ endYear="2030"
 @confirm="onConfirm" 
 ref="range" 
 themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 mode=half（年月日上午下午）
-<w-picker
+<ai-picker
     mode="half" 
     :startYear="startYear" 
     :endYear="2030"
@@ -84,10 +84,10 @@ mode=half（年月日上午下午）
     :disabledAfter="true"
     ref="half" 
     themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 mode=date（年月日）
-<w-picker 
+<ai-picker 
     mode="date" 
     startYear="2017" 
     endYear="2019"
@@ -97,10 +97,10 @@ mode=date（年月日）
     :disabledAfter="true"
     ref="date" 
     themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 mode=yearMonth(年月)
-<w-picker
+<ai-picker
     mode="yearMonth" 
     startYear="2016"
     endYear="2019"
@@ -109,10 +109,10 @@ mode=yearMonth(年月)
     @confirm="onConfirm" 
     ref="yearMonth" 
     themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 ode=dateTime（年月日时分秒)
-<w-picker
+<ai-picker
     mode="dateTime" 
     startYear="2017" 
     endYear="2030"
@@ -122,30 +122,30 @@ ode=dateTime（年月日时分秒)
     @confirm="onConfirm" 
     ref="dateTime" 
     themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 mode=time(时间选择)
-<w-picker
+<ai-picker
     mode="time"
     :defaultVal="['02','03','30']" 
     :current="false" 
     @confirm="onConfirm" 
     ref="time"
     step="1"
-></w-picker>
+></ai-picker>
 
 mode=limitHour(短期日期上午下午时选择) dayStep:当前日期向后推移天数	
-<w-picker
+<ai-picker
     mode="limitHour" 
     dayStep="60"
     @confirm="onConfirm"
     :defaultVal="['明天','下午','02']"
     ref="limitHour" 
     themeColor="#f00"
-></w-picker>
+></ai-picker>
 
 mode=limit(短期日期时分选择) minuteStep:分钟步长取值：1-59;afterStep:当前时间往后推移多少分钟
-<w-picker 
+<ai-picker 
     mode="limit" 
     dayStep="60"
     startHour="8"
@@ -155,10 +155,10 @@ mode=limit(短期日期时分选择) minuteStep:分钟步长取值：1-59;afterS
     @confirm="onConfirm" 
     ref="limit" 
     themeColor="#f00">
-</w-picker>
+</ai-picker>
 
 mode=region(省市区三级联动)
-<w-picker 
+<ai-picker 
     mode="region"
     :defaultVal="['浙江省','杭州市','滨江区']"
     :areaCode="['33','3301','330108']"
@@ -166,10 +166,10 @@ mode=region(省市区三级联动)
     @confirm="onConfirm" 
     ref="region" 
     themeColor="#f00">
-</w-picker>
+</ai-picker>
 
 mode=selector     
-<w-picker
+<ai-picker
     v-if="selectList.length!=0"
     mode="selector" 
     :defaultVal="['女']" 
@@ -177,4 +177,4 @@ mode=selector
     ref="selector" 
     themeColor="#f00"
     :selectList='[{label:"",value:""},{label:"",value:""}]'
-></w-picker>
+></ai-picker>

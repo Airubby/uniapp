@@ -18,6 +18,20 @@
 			ref="picker" 
 			themeColor="#f00"></ai-picker>
 		</view>
+		<view @tap="toggleTab('selector')" style="margin: 10px 0;">弹出selector</view>
+		<view>
+			<ai-picker
+				v-if="selectList.length!=0"
+				mode="selector" 
+				:defaultVal="['2']" 
+				@confirm="onConfirm" 
+				ref="selector" 
+				themeColor="#f00"
+				:params="{label: 'name',
+						value: 'id',}"
+				:selectList='selectList'
+			></ai-picker>
+		</view>
 		<view>百度ip定位：</view>
 		<view style="margin-top:10px;">
 			<ai-input v-model="input" placeholder="请输入" type="password" placeholderStyle="color:#999;"></ai-input>
@@ -64,6 +78,7 @@
 				resultInfo:"",
 				input:"",
 				textarea:"",
+				selectList:[{id:"1",name:"男"},{id:"2",name:"女"}]
 			}
 		},
 		
