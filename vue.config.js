@@ -1,8 +1,17 @@
 const path = require("path");
+const chalk = require('chalk')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+// const PrerenderSPAPlugin = require('prerender-spa-plugin')   //prerender-spa-plugin  这个在自动部署上面报错
+const TerserPlugin = require('terser-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production';
+
+// 是否使用gzip
+const productionGzip = true
+// 需要gzip压缩的文件后缀
+const productionGzipExtensions = ['js', 'css']
 module.exports = {
     // 基本路径
-    publicPath: './',
+    publicPath: '/',
     // 输出主文件名称
     indexPath: './index.html',
     //baseUrl: process.env.NODE_ENV === "production" ? "./" : "/"
@@ -18,56 +27,103 @@ module.exports = {
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
     chainWebpack: config => {
-        // config
-        //     .entry('index')
-        //     .add('babel-polyfill')
-        //     .end();
-         // 配置别名
-        config.resolve.alias.set("@", path.join(__dirname, "src"))
-        if(isProduction){
-            // 删除预加载
-            config.plugins.delete('preload');
-            config.plugins.delete('prefetch');
-            // 压缩代码
-            config.optimization.minimize(true);
-            // 分割代码
-            config.optimization.splitChunks({
-                chunks: 'all'
-            })
-        }
+        //  // 配置别名
+        // config.resolve.alias.set("@", path.join(__dirname, "src"))
+
+        /**
+         * 删除懒加载模块的prefetch，降低带宽压力
+         * https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
+         * 而且预渲染时生成的prefetch标签是modern版本的，低版本浏览器是不需要的
+         */
+        config.plugins.delete('prefetch')
+        config.plugins.delete('preload');
+         // 压缩代码
+        config.optimization.minimize(true);
+        // 分割代码
+        config.optimization.splitChunks({
+            chunks: 'all'
+        })
     },
+    //公共代码抽离
     configureWebpack: config => {
+        const myConfig = {}
         if (isProduction) {
-            // 为生产环境修改配置...
-            config.mode = 'production';
-            // 将每个依赖包打包成单独的js文件,含有视频的时候，会有错误......
-            let optimization = {
-                runtimeChunk: 'single',
+            // 1. 生产环境npm包转CDN，externals定义的部分不需要Webpack打包编译
+            myConfig.externals = externals
+            // 2. 使用预渲染，在仅加载html和css之后即可显示出基础的页面，提升用户体验，避免白屏，但在自动部署上面报错
+            myConfig.plugins = []
+            //3.js代码整合
+            let optimization= {
+                //去掉打印console信息
+                minimizer: [new TerserPlugin({ terserOptions: { compress: { drop_console: true } } })],
+                //整合代码
                 splitChunks: {
-                chunks: 'all',
-                maxInitialRequests: Infinity,
-                minSize: 20000,
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name (module) {
-                                // get the name. E.g. node_modules/packageName/not/this/part.js
-                                // or node_modules/packageName
-                                const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
-                                // npm package names are URL-safe, but some servers don't like @ symbols
-                                return `npm.${packageName.replace('@', '')}`
-                            }
+                    cacheGroups: {
+                        vendor:{
+                            chunks:"all",
+                            test: /node_modules/,
+                            name:"vendor",
+                            minChunks: 1,
+                            maxInitialRequests: 5,
+                            minSize: 0,
+                            priority:100,
+                        },
+                        common: {
+                            chunks:"all",
+                            test:/[\\/]src[\\/]js[\\/]/,
+                            name: "common",
+                            minChunks: 2,
+                            maxInitialRequests: 5,
+                            minSize: 0,
+                            priority:60
+                        },
+                        styles: {
+                            name: 'styles',
+                            test: /\.(le|sa|sc|c)ss$/,
+                            chunks: 'all',
+                            enforce: true,
+                        },
+                        runtimeChunk: {
+                            name: 'manifest'
                         }
-                    }
-                }
+                    } 
+                },
+                
             }
             Object.assign(config, {
                 optimization
             })
-        } else {
-            // 为开发环境修改配置...
-            config.mode = 'development';
+            // 4. 构建时开启gzip，降低服务器压缩对CPU资源的占用，服务器也要相应开启gzip
+            productionGzip && myConfig.plugins.push(
+                new CompressionWebpackPlugin({
+                    test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+                    threshold: 8192,
+                    minRatio: 0.8
+                })
+            )
+
         }
+        if (!isProduction) {
+            /**
+             * 关闭host check，方便使用ngrok之类的内网转发工具
+             */
+            myConfig.devServer = {
+                disableHostCheck: true
+            }
+            let optimization={
+                minimizer:[
+                    new TerserPlugin({
+                        cache: true,
+                        // 将多线程关闭  webpack会92%卡住的问题
+                        parallel: false
+                    })
+                ]
+            }
+            Object.assign(config, {
+                optimization
+            })
+        }
+        return myConfig
         // Object.assign(config, {
         //     // 开发生产共同配置
         //     resolve: {
@@ -109,13 +165,13 @@ module.exports = {
     // pwa: {},
     // webpack-dev-server 相关配置
     devServer: {
-        open: true, 
+        open: false, 
         compress: false, // 开启压缩
         overlay: {
             warnings: true,
             errors: true
         },
-        host: '127.0.0.1',
+        host: '0.0.0.0',
         port: 8081,
         https: false,
         hotOnly: false,
@@ -125,6 +181,7 @@ module.exports = {
             target: 'http://192.168.16.6:8090', // 你接口的域名
                 secure: false, // 如果是https接口，需要配置这个参数
                 changeOrigin: true, // 如果接口跨域，需要进行这个参数配置
+                ws:false,
                 pathRewrite:{
                 '^/ISmac/ismacsite':'/ISmac/ismacsite'
                 }

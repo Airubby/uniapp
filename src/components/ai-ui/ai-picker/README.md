@@ -45,3 +45,136 @@
 | ---- |-----| ----- |
 | show | 显示插件 | - |
 | hide | 隐藏插件 | - |
+
+
+## Example
+
+mode=linkage(动态数据二级、三级联动)
+<w-picker
+    mode="linkage"
+    :level="2"
+    :value="['10','1012']"
+    :defaultVal="['浙江省','宁波市']"
+    @confirm="onConfirm"
+    ref="linkage"
+    :linkList='[{label:"aaa",value:"10",children:[{label:"aaa",value:"10"}]}]'
+    themeColor="#f00"
+></w-picker>
+
+mode=range(时间段选择例2019-06-08至2019年09-08)；默认值defaultVal为7个值的数组，第四位值'-'代表中间的分隔符
+<w-picker 
+mode="range" 
+startYear="2017" 
+endYear="2030"
+:defaultVal="['2017','12','31','-','2019','12','31']"
+:current="false"
+@confirm="onConfirm" 
+ref="range" 
+themeColor="#f00"
+></w-picker>
+
+mode=half（年月日上午下午）
+<w-picker
+    mode="half" 
+    :startYear="startYear" 
+    :endYear="2030"
+    :defaultVal="['2021','02','05','下午']" 
+    :current="false" 
+    @confirm="onConfirm"
+    :disabledAfter="true"
+    ref="half" 
+    themeColor="#f00"
+></w-picker>
+
+mode=date（年月日）
+<w-picker 
+    mode="date" 
+    startYear="2017" 
+    endYear="2019"
+    :defaultVal="['2018','12','30']"
+    :current="false" 
+    @confirm="onConfirm"
+    :disabledAfter="true"
+    ref="date" 
+    themeColor="#f00"
+></w-picker>
+
+mode=yearMonth(年月)
+<w-picker
+    mode="yearMonth" 
+    startYear="2016"
+    endYear="2019"
+    :defaultVal="['2018','12']" 
+    :current="false" 
+    @confirm="onConfirm" 
+    ref="yearMonth" 
+    themeColor="#f00"
+></w-picker>
+
+ode=dateTime（年月日时分秒)
+<w-picker
+    mode="dateTime" 
+    startYear="2017" 
+    endYear="2030"
+    step="1"
+    :defaultVal="['2018','09','10','12','48','45']" 
+    :current="false" 
+    @confirm="onConfirm" 
+    ref="dateTime" 
+    themeColor="#f00"
+></w-picker>
+
+mode=time(时间选择)
+<w-picker
+    mode="time"
+    :defaultVal="['02','03','30']" 
+    :current="false" 
+    @confirm="onConfirm" 
+    ref="time"
+    step="1"
+></w-picker>
+
+mode=limitHour(短期日期上午下午时选择) dayStep:当前日期向后推移天数	
+<w-picker
+    mode="limitHour" 
+    dayStep="60"
+    @confirm="onConfirm"
+    :defaultVal="['明天','下午','02']"
+    ref="limitHour" 
+    themeColor="#f00"
+></w-picker>
+
+mode=limit(短期日期时分选择) minuteStep:分钟步长取值：1-59;afterStep:当前时间往后推移多少分钟
+<w-picker 
+    mode="limit" 
+    dayStep="60"
+    startHour="8"
+    endHour="20"
+    minuteStep="5"
+    afterStep="30"
+    @confirm="onConfirm" 
+    ref="limit" 
+    themeColor="#f00">
+</w-picker>
+
+mode=region(省市区三级联动)
+<w-picker 
+    mode="region"
+    :defaultVal="['浙江省','杭州市','滨江区']"
+    :areaCode="['33','3301','330108']"
+    :hideArea="true"
+    @confirm="onConfirm" 
+    ref="region" 
+    themeColor="#f00">
+</w-picker>
+
+mode=selector     
+<w-picker
+    v-if="selectList.length!=0"
+    mode="selector" 
+    :defaultVal="['女']" 
+    @confirm="onConfirm" 
+    ref="selector" 
+    themeColor="#f00"
+    :selectList='[{label:"",value:""},{label:"",value:""}]'
+></w-picker>

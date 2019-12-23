@@ -11,13 +11,6 @@ const service = uni_request({ // 有效配置项只有三个
 service.interceptors.request.use(config => { // 请求拦截器（可以设置多个）
     console.log('请求拦截器')
     console.log(config)
-    const showLoading = config.showLoading;
-	if(showLoading){
-		uni.showLoading({
-			title: config.showLoading === true ? '加载中...' : showLoading,
-			mask: true
-		})
-	}
 	return config
 })
 
@@ -26,7 +19,6 @@ service.interceptors.response.use(response => { // 响应拦截器（可以设�
 	if (res.code === 200) {
 		console.log('响应拦截器')
     }
-    uni.hideLoading();
 	return response
 })
 

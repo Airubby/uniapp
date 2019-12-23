@@ -535,7 +535,6 @@
 				this.showPicker = false;
 			},
 			bindChange(val){
-				console.log(val)
 				let _this=this;
 				let arr=val.detail.value;
 				let year="",month="",day="",hour="",minute="",second="",note=[],province,city,area;
@@ -751,7 +750,6 @@
 						break;
 					case "region":
 						//省市区在一起的js用
-						console.log(111111111)
 						province=_this.data.provinces[arr[0]]||_this.data.provinces[0];
 						city=_this.data.citys[arr[1]]||_this.data.citys[0];
 						if(!_this.hideArea){

@@ -18,23 +18,29 @@
 			ref="picker" 
 			themeColor="#f00"></ai-picker>
 		</view>
+		<view>百度ip定位：</view>
+		<view style="margin-top:10px;">
+			<ai-input v-model="input" placeholder="请输入" type="password" placeholderStyle="color:#999;"></ai-input>
+			<text>双向绑定input的值：{{input}}</text>
+			<ai-input v-model="textarea" placeholder="请输入" :autoHeight="true" type="textarea" placeholderStyle="color:#999;"></ai-input>
+			<text>双向绑定textarea的值：{{textarea}}</text>
+		</view>
 	</view>
 </template>
 
 <script>
 	import aiUploadImage from '@/components/ai-ui/ai-upload-image/index.vue'
 	import aiPicker from '@/components/ai-ui/ai-picker/index.vue'
+	import aiInput from '@/components/ai-ui/ai-input/index.vue'
 	export default {
-		components: {aiUploadImage,aiPicker},
+		components: {aiUploadImage,aiPicker,aiInput},
 		created(){
 			this.aesInfo=this.$util.Encrypt(this.Info);
 			this.backInfo=this.$util.Decrypt(this.aesInfo);
-			console.log(233333333333333)
-			this.$api.get("/getData",{showLoading: true},r=>{
+			this.$api.get("/getData",{},r=>{
 				console.log(r)
 			});
 			this.$api.post("/postData",{
-				showLoading: true,
 				name:"123123",
 				dataqe:[{
 					"name":"123",user:"222"
@@ -45,6 +51,8 @@
 			},r=>{
 				console.log(r)
 			});
+
+
 		},
 	
 		data() {
@@ -52,8 +60,10 @@
 				Info:"admin",
 				aesInfo:"admin",
 				backInfo:"",
-				imgUrl:"",
-				resultInfo:""
+				imgUrl:"https://img.cdn.aliyun.dcloud.net.cn/stream/plugin_screens/bbe77c00-83c2-11e9-ad53-2fc4ad63c7cf_0.jpg?v=1576120713",
+				resultInfo:"",
+				input:"",
+				textarea:"",
 			}
 		},
 		

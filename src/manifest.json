@@ -39,16 +39,40 @@
         }
     },
     "h5" : {
-        "publicPath" : "./",
+        "publicPath" : "/",
         "router" : {
-            "base" : ""
+            "base" : "",
+            "mode" : "history"
         },
         "optimization" : {
             "treeShaking" : {
                 "enable" : true
             }
         },
-        "domain" : "www.test.com"
+        "domain" : "www.test.com",
+        "devServer" : {
+            "open" : false,
+            "compress" : false,
+            "overlay" : {
+                "warnings" : true,
+                "errors" : true
+            },
+            "host" : "0.0.0.0",
+            "port" : 8088,
+            "https" : false,
+            "hotOnly" : false,
+            "proxy" : {
+                "/api" : {
+                    "target" : "https://www.fastmock.site/mock/b5aeba034aac038de76b613109a5cce7/test",
+                    "secure" : false,
+                    "changeOrigin" : true,
+                    "ws" : false,
+                    "pathRewrite" : {
+                        "^/api" : ""
+                    }
+                }
+            }
+        }
     },
     "quickapp" : {},
     "mp-weixin" : {

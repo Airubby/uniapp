@@ -92,7 +92,8 @@ import aiIcons from '../ai-icons/index.vue'
 			}
 		},
 		created(){
-			
+			//初始化绑定图片
+			this.imgUrl=this.value;
 		},
 		mounted(){
 			
@@ -138,6 +139,7 @@ import aiIcons from '../ai-icons/index.vue'
 		},
 		watch:{
 			value:function(val){
+				console.log(this.val)
 				this.imgUrl=val;
 			},
 			imgUrl:function(val){
