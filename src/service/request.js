@@ -12,7 +12,14 @@ const service = uni_request({ // 有效配置项只有三个
 service.interceptors.request.use(config => { // 请求拦截器（可以设置多个）
     console.log('请求拦截器')
     console.log(config)
-	return config
+    uni.getStorage({
+      key: 'token',
+      success: function (res) {
+        config.headers['Authorization'] ="Bearer "+res.data;
+        return config
+      },
+    });
+	  return config
 })
 
 service.interceptors.response.use(response => { // 响应拦截器（可以设置多个）

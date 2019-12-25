@@ -2,6 +2,12 @@
 	export default {
 		onLaunch: function () {
 			console.log('App Launch')
+			uni.removeStorage({
+				key: 'token',
+				success: function (res) {
+					console.log('初始化的时候删除token');
+				}
+			});
 		},
 		onShow: function () {
 			console.log('App Show')
