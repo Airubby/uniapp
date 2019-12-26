@@ -14,10 +14,10 @@ import {
     } from 'vuex'
 	export default {
 		computed: {
-            ...mapState(['hasLogin', 'forcedLogin'])
+            ...mapState(['app/hasLogin', 'app/forcedLogin'])
         },
         methods: {
-            ...mapMutations(['logout']),
+            ...mapMutations(['app/logout']),
             bindLogin() {
                 uni.navigateTo({
                     url: '/pages/login/index',

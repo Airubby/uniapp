@@ -21,10 +21,30 @@ Vue.prototype.$store = store
 // Vue.component("ai-input", aiInput)
 
 
-App.mpType = 'app'
+function getServerConfig() {
+    return new Promise ((resolve, reject) => {
+        uni.request({
+            url:"/serverConfig.json",
+            success: (res) => {
+                console.log(res.data);
+                let config = res.data;
+                Vue.prototype.$ajaxUrl=config.ajaxUrl;
+                store.dispatch("app/setAjaxUrl",config.ajaxUrl)
+                resolve();
+            }
+        })
 
-const app = new Vue({
-    store,
-    ...App
-})
-app.$mount()
+    })
+  }
+
+
+
+async function init() {
+    App.mpType = 'app'
+    await getServerConfig();
+    new Vue({
+      store,
+      render: h => h(App),
+    }).$mount()
+  }
+  init();

@@ -66,10 +66,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState,mapGetters } from 'vuex'
 	export default {
-		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
+		// computed: mapState(['app/forcedLogin', 'app/hasLogin', 'app/userName']),
+		// computed:mapGetters(['forcedLogin', 'app/hasLogin', 'app/userName']),
+		computed:{
+			...mapState('app',['forcedLogin', 'hasLogin', 'userName'])
+		},
 		onLoad() {
+			console.log(this.$store.getters['app/ajaxUrl'])
+			console.log(this.forcedLogin)
 			if (!this.hasLogin) {
                 uni.showModal({
                     title: '未登录',

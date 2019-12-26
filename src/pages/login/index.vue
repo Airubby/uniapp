@@ -29,10 +29,7 @@
 <script>
     import service from '@/service/index.js';
     // npm i async-validator-uniapp --save
-    import {
-        mapState,
-        mapMutations
-    } from 'vuex'
+    import {  mapState, mapMutations } from 'vuex'
     import mInput from '@/components/m-input/m-input.vue'
 
     export default {
@@ -48,9 +45,9 @@
                 positionTop: 0
             }
         },
-        computed: mapState(['forcedLogin']),
+        computed: mapState('app',['forcedLogin']),
         methods: {
-            ...mapMutations(['login']),
+            ...mapMutations('app',['login']),
             initProvider() {
                 const filters = ['weixin', 'qq', 'sinaweibo'];
                 uni.getProvider({

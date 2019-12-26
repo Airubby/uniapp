@@ -1,8 +1,9 @@
 import uni_request from './uni_request.js'
+import store from '@/store'
 
 const service = uni_request({ // 有效配置项只有三个
   // baseURL: 'https://www.fastmock.site/mock/b5aeba034aac038de76b613109a5cce7/test', //baseURL
-    baseURL:'http://106.54.120.61:7000',
+    baseURL:store.getters['app/ajaxUrl'],
     timeout: 1111, // 超时时间
     headers: {
 		'Content-Type': 'application/json'
