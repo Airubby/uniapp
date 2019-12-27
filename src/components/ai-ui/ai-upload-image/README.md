@@ -20,6 +20,6 @@
 
 ## Example
 
-| 事件名 |
+| 案例 |
 | --------- |
-| <ai-upload-image v-model="imgUrl" action="127.0.0.1" @success="success" @fail="fail"></ai-upload-image> |
+| <ai-upload-image :src="imgUrl" action="127.0.0.1" iconColor="#0099cc" iconSize="36" @success="success" @fail="fail"></ai-upload-image> |

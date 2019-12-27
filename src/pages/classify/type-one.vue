@@ -4,7 +4,7 @@
 		<view>AES加密文本：{{aesInfo}}</view>
 		<view>AES解密文本：{{backInfo}}</view>
 		<view style="width:200px;height:150px;">
-			<ai-upload-image v-model="imgUrl" action="127.0.0.1" @success="success" @fail="fail"></ai-upload-image>
+			<ai-upload-image :src="baseUrl+imgUrl" :action="$ajaxUrl+'/posts/'" iconSize="36" iconColor="#0099cc" @success="success" @fail="fail"></ai-upload-image>
 		</view>
 		{{imgUrl}}
 		{{resultInfo}}
@@ -74,7 +74,8 @@
 				Info:"admin",
 				aesInfo:"admin",
 				backInfo:"",
-				imgUrl:"https://img.cdn.aliyun.dcloud.net.cn/stream/plugin_screens/bbe77c00-83c2-11e9-ad53-2fc4ad63c7cf_0.jpg?v=1576120713",
+				baseUrl:"https://img.cdn.aliyun.dcloud.net.cn",
+				imgUrl:"/stream/plugin_screens/bbe77c00-83c2-11e9-ad53-2fc4ad63c7cf_0.jpg?v=1576120713",
 				resultInfo:"",
 				input:"",
 				textarea:"",
@@ -94,6 +95,12 @@
 				// 		break;
 				// }
 				this.resultInfo=val;
+			},
+			success:function(response){
+				
+			},
+			fail:function(response){
+
 			},
 		},
 		watch:{

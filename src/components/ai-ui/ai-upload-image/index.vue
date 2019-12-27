@@ -2,14 +2,14 @@
 	<view class="ai-upload-img">
 		<view class="ai-upload-con">
 			<view class="ai-upload-btn" @tap="selectImg" v-show="imgUrl==''">
-				<ai-icons color="#0099cc" type="camera" size="36"></ai-icons>
+				<ai-icons :color="iconColor" type="camera" :size="iconSize"></ai-icons>
 				<view class="text">拍摄或选择照片</view>
 			</view>
 			<view class="ai-upload-preview" v-show="imgUrl!=''">
 				<image :src="imgUrl" style="width:100%;height:100%;" mode="scaleToFill"></image>
 				<view class="ai-upload-mask">
 					<view class="ai-upload-mask-con" @tap="remove">
-						<ai-icons color="#0099cc" type="remove" size="36" class="ai-upload-mask-icon"></ai-icons>
+						<ai-icons :color="iconColor" type="remove" :size="iconSize" class="ai-upload-mask-icon"></ai-icons>
 					</view>
 				</view>
 			</view>
@@ -65,10 +65,20 @@ import aiIcons from '../ai-icons/index.vue'
 	export default {
         components:{ aiIcons},
         props: {
-			value: {
-				// 图片地址
-				type: String,
-				default: ''
+			// 图片地址
+			src:{
+				type:String,
+				default:''
+			},
+			//图标的颜色
+			iconColor:{
+				type:String,
+				default:"#0099cc"
+			},
+			//图标大小
+			iconSize:{
+				type:[Number, String],
+				default:36
 			},
 			//自动上传
 			autoUpload:{
@@ -93,7 +103,7 @@ import aiIcons from '../ai-icons/index.vue'
 		},
 		created(){
 			//初始化绑定图片
-			this.imgUrl=this.value;
+			this.imgUrl=this.src;
 		},
 		mounted(){
 			
@@ -128,23 +138,17 @@ import aiIcons from '../ai-icons/index.vue'
 					name: _this.name,
 					formData: _this.data,
 					success: (uploadFileRes) => {
-						console.log(uploadFileRes.data);
-						this.$emit('success', uploadFileRes);
+						this.$emit('success', uploadFileRes.data);
 					},
 					fail:(uploadFileRes)=>{
-						this.$emit('fail', uploadFileRes);
+						this.imgUrl="";
+						this.$emit('fail', uploadFileRes.data);
 					}
 				});
 			},
 		},
 		watch:{
-			value:function(val){
-				console.log(this.val)
-				this.imgUrl=val;
-			},
-			imgUrl:function(val){
-				this.$emit('input', val);
-			}
+			
 		}
 	}
 </script>
