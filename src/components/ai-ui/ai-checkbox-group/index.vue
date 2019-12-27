@@ -1,10 +1,10 @@
 <template>
 	<checkbox-group @change="checkboxChange" class="checkbox-group">
-		<label v-for="item in items" :key="item.value" class="checkbox-lable">
+		<label v-for="item in items" :key="item[params.value]" class="checkbox-lable">
 			<view class="checkbox-group-btn">
-				<checkbox :value="item.value" :checked="value.indexOf(item.value)!=-1" />
+				<checkbox :value="item[params.value].toString()" :checked="value.map(String).indexOf(item[params.value].toString())!=-1" />
 			</view>
-			<view class="checkbox-group-text" :class="{'checkbox-active':value.indexOf(item.value)!=-1}">{{item.name}}</view>
+			<view class="checkbox-group-text" :class="{'checkbox-active':value.map(String).indexOf(item[params.value].toString())!=-1}">{{item[params.label]}}</view>
 		</label>
 	</checkbox-group>
 </template>
@@ -13,8 +13,17 @@
     export default {
         props: {
             value: {
-				type: Array,
+				type: [Array,Number],
 				default: []
+			},
+			params:{
+				type:Object,
+				default(){
+					return {
+						label: 'label',
+						value: 'value',
+					}
+				}
 			},
 			items: {
 				type: Array,
@@ -44,6 +53,7 @@
 	.checkbox-group{
 		display:flex;
 		flex-wrap:wrap;
+		--color:#007AFF;
 	}
 	.checkbox-lable{
 		margin-right:5px;
@@ -60,15 +70,15 @@
 		cursor: pointer;
 	}
 	.checkbox-group-text:hover{
-		border-color: #007AFF;
-		color: #007AFF;
+		border-color: var(--color);
+		color: var(--color);
 	}
 	.checkbox-active.checkbox-group-text{
-		border-color: #007AFF;
-		background: #007AFF;
+		border-color: var(--color);
+		background: var(--color);
 		color: #fff;
 	}
 	.checkbox-active.checkbox-group-text:hover{
-		background: #007AFF;
+		background: var(--color);
 	}
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<view>
 		单选按钮组
-		<radio-group-btn :items="items" v-model="current"></radio-group-btn>
+		<ai-radio-group :items="items" v-model="current" :params="params"></ai-radio-group>
 		复选按钮组
-		<checkbox-group-btn :items="items" v-model="checkbox_current"></checkbox-group-btn>
+		<ai-checkbox-group :items="items" v-model="checkbox_current" :params="params"></ai-checkbox-group>
 		<ai-form :rules="rules" :model="form" ref="ruleForm" @submit="customerSubmit" :toast="false">
 		
 			<ai-input type="text" v-model="form.input" placeholder="我第二个校验" prop="input"></ai-input>
@@ -19,24 +19,27 @@
 </template>
 
 <script>
-	import radioGroupBtn from '@/components/ai-ui/radio-group-btn/index.vue'
-	import checkboxGroupBtn from '@/components/ai-ui/checkbox-group-btn/index.vue'
+	import aiRadioGroup from '@/components/ai-ui/ai-radio-group/index.vue'
+	import aiCheckboxGroup from '@/components/ai-ui/ai-checkbox-group/index.vue'
 	import {aiForm,aiInput,aiTextarea,aiPicker} from '@/components/ai-form-group/index.js'
 	export default {
-		components: {radioGroupBtn,checkboxGroupBtn,aiForm,aiInput,aiTextarea,aiPicker},
+		components: {aiRadioGroup,aiCheckboxGroup,aiForm,aiInput,aiTextarea,aiPicker},
 		data() {
 			return {
-				current:"USA",
-				checkbox_current:["USA"],
+				current:1,
+				checkbox_current:[1],
 				items: [{
-						value: 'USA',
+						id: 1,
 						name: '美国'
 					},{
-						value: 'CHN',
+						id: 2,
 						name: '中国',
-						checked: 'true'
 					}
 				],
+				params:{
+					label: 'name',
+					value: 'id',
+				},
 				arrays: [{
 						id: 'USA',
 						text: '美国'
