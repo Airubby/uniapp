@@ -35,7 +35,14 @@
                 ]
             },
             "ios" : {},
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "5b3914ca02a9dafc885c78f7a239f2cf",
+                        "appkey_android" : "5b3914ca02a9dafc885c78f7a239f2cf"
+                    }
+                }
+            }
         }
     },
     "h5" : {
@@ -50,6 +57,14 @@
             }
         },
         "domain" : "www.test.com",
+        "title" : "小驴优资",
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "F2HBZ-SMJ6X-TZS4V-TBSWF-JLWM3-COFOK"
+                }
+            }
+        },
         "devServer" : {
             "open" : false,
             "compress" : false,

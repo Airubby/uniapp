@@ -1,14 +1,14 @@
 <template>
 	<view class="ai-upload-img">
 		<view class="ai-upload-con">
-			<view class="ai-upload-btn" @tap="selectImg" v-show="imgUrl==''">
+			<view class="ai-upload-btn" @tap="selectImg" v-if="imgUrl==''">
 				<ai-icons :color="iconColor" type="camera" :size="iconSize"></ai-icons>
 				<view class="text">拍摄或选择照片</view>
 			</view>
-			<view class="ai-upload-preview" v-show="imgUrl!=''">
+			<view class="ai-upload-preview" v-if="imgUrl!=''">
 				<image :src="imgUrl" style="width:100%;height:100%;" mode="scaleToFill"></image>
-				<view class="ai-upload-mask">
-					<view class="ai-upload-mask-con" @tap="remove">
+				<view class="ai-upload-mask" :class="{'disabled':disabled}">
+					<view class="ai-upload-mask-con" @tap="remove" v-if="!disabled">
 						<ai-icons :color="iconColor" type="remove" :size="iconSize" class="ai-upload-mask-icon"></ai-icons>
 					</view>
 				</view>
@@ -56,6 +56,11 @@
 						display: block;
 					}
 				}
+				&.disabled:hover{
+					.ai-upload-mask{
+						display: none;
+					}
+				}
 			}
 		}
 	}
@@ -69,6 +74,16 @@ import aiIcons from '../ai-icons/index.vue'
 			src:{
 				type:String,
 				default:''
+			},
+			//是否禁用
+			disabled:{
+				type:Boolean,
+				default:false
+			},
+			//头信息
+			header:{
+				type:Object,
+				default:()=>{},
 			},
 			//图标的颜色
 			iconColor:{
@@ -115,26 +130,31 @@ import aiIcons from '../ai-icons/index.vue'
         },
 		methods:{
 			remove:function(){
-				this.imgUrl="";
+				if(!this.disabled){
+					this.imgUrl="";
+				}
 			},
 			selectImg : function() {
-				let _this=this;
-				uni.chooseImage({
-					count:1,
-					success:function(res){
-						console.log(res)
-						_this.imgUrl = res.tempFilePaths[0];
-						if(_this.autoUpload){
-							_this.submit();
-						}
-					},
-				})
+				if(!this.disabled){
+					let _this=this;
+					uni.chooseImage({
+						count:1,
+						success:function(res){
+							console.log(res)
+							_this.imgUrl = res.tempFilePaths[0];
+							if(_this.autoUpload){
+								_this.submit();
+							}
+						},
+					})
+				}
 			},
 			submit:function(){
 				let _this=this;
 				uni.uploadFile({
 					url: _this.action, 
 					filePath: _this.imgUrl,
+					header:_this.header,
 					name: _this.name,
 					formData: _this.data,
 					success: (uploadFileRes) => {
@@ -148,7 +168,9 @@ import aiIcons from '../ai-icons/index.vue'
 			},
 		},
 		watch:{
-			
+			src:function(){
+				this.imgUrl=this.src;
+			}
 		}
 	}
 </script>

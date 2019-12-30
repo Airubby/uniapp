@@ -8,6 +8,10 @@
 | autoUpload | 是否自动上传 | Boolean | true,false | true |
 | data | 上传的附加参数 | Object | - | {} |
 | name | 上传文件字段名 | String | - | file |
+| header | 上传头文件信息 | Object | - | {} |
+| disabled | 是否禁用 | Boolean | - | false |
+| iconColor | 图标颜色 | String | - | "#0099cc" |
+| iconSize | 图标大小 | Number, String | - | 36 |
 
 
 
