@@ -33,10 +33,11 @@
 
 //import { mapGetters } from 'vuex'
 // computed:{
-//     ...mapGetters([
+//     ...mapGetters('app',[
 //         'forcedLogin','hasLogin'
 //     ]),
 // },
+// this.$store.getters['app/ajaxUrl']
 
 import Vue from 'vue'
 import Vuex from 'vuex'

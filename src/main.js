@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
-import request from './service/request'
-
 
 Vue.config.productionTip = false
-Vue.prototype.$api = request
+
 import util from './common/util'  //工具函数
 //绑定工具函数到全局
 Vue.prototype.$util = util
