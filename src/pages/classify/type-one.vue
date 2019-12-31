@@ -66,6 +66,20 @@
 				console.log(r)
 			});
 
+			//动态设置当前导航条的标题
+			uni.setNavigationBarTitle({
+				title: '新的标题'
+			});
+			//动态设置导航颜色等
+			uni.setNavigationBarColor({
+				frontColor: '#ffffff',
+				backgroundColor: '#ff0000',
+				animation: {
+					duration: 400,
+					timingFunc: 'easeIn'
+				}
+			})
+
 		},
 	
 		data() {

@@ -1,9 +1,9 @@
 <template>
     <view class="input-area">
-		<textarea class="area" :focus="focus_"  :value="value" @input="onInput" :placeholder="placeholder" :disabled="disabled" 
+		<textarea class="area" :focus="focus_"  :value="inputValue" @input="onInput" :placeholder="placeholder" :disabled="disabled" 
 		:maxlength="maxlength"  :placeholder-style="placeholderStyle" @focus="onFocus" @blur="onBlur" 
 		:auto-height="autoHeight" v-if="type==='textarea'" />
-        <input class="input" :focus="focus_" :type="inputType" :value="value" @input="onInput" :placeholder="placeholder" :disabled="disabled" 
+        <input class="input" :focus="focus_" :type="inputType" :value="inputValue" @input="onInput" :placeholder="placeholder" :disabled="disabled" 
 		:maxlength="maxlength"  :placeholder-style="placeholderStyle"
 		 :password="type==='password'&&!showPassword" @focus="onFocus" @blur="onBlur" v-else />
     </view>
@@ -43,7 +43,7 @@
 			},
 			//值
 			value: {
-				type: String,
+				type: [String,Number],
 				default: ""
 			},
 			//是否禁用
@@ -93,8 +93,13 @@
 		},
 		computed: {
 			inputType() {
-				const type = this.type
+				const type = this.type;
 				return type === 'password'||type==='textarea' ? 'text' : type
+			},
+			inputValue(){
+				const value=this.value;
+				return value===null?"":value;
+				
 			},
 			focus_() {
 				return String(this.focus) !== 'false'
