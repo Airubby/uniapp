@@ -4,7 +4,7 @@
 		<view>AES加密文本：{{aesInfo}}</view>
 		<view>AES解密文本：{{backInfo}}</view>
 		<view style="width:200px;height:150px;">
-			<ai-upload-image :src="baseUrl+imgUrl" :action="$ajaxUrl+'/posts/'" iconSize="36" iconColor="#0099cc" @success="success" @fail="fail"></ai-upload-image>
+			<ai-upload-image :src="getfile" :action="$ajaxUrl+'/posts/'" iconSize="36" iconColor="#0099cc" @success="success" @fail="fail"></ai-upload-image>
 		</view>
 		{{imgUrl}}
 		{{resultInfo}}
@@ -81,9 +81,16 @@
 			})
 
 		},
-	
+		computed:{
+			getfile(){
+				if(this.loadImg){
+					return this.initParams.imgUrl?this.initParams.baseUrl+this.initParams.imgUrl:"";
+				}
+			},
+		},
 		data() {
 			return {
+				loadImg:true, //默认加载的时候
 				Info:"admin",
 				aesInfo:"admin",
 				backInfo:"",
@@ -110,7 +117,9 @@
 				this.resultInfo=val;
 			},
 			success:function(response){
-				
+				this.loadImg=false;  //设置false 是用本地的图片资源，就不更新服务器过来的地址
+				let res=JSON.parse(response);
+				this.initParams.imgUrl=res.path;
 			},
 			fail:function(response){
 

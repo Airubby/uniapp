@@ -8,8 +8,10 @@
 			<view class="ai-upload-preview" v-if="imgUrl!=''">
 				<image :src="imgUrl" style="width:100%;height:100%;" mode="scaleToFill"></image>
 				<view class="ai-upload-mask" :class="{'disabled':disabled}">
-					<view class="ai-upload-mask-con" @tap="remove" v-if="!disabled">
-						<ai-icons :color="iconColor" type="remove" :size="iconSize" class="ai-upload-mask-icon"></ai-icons>
+					<view class="ai-upload-mask-con" v-if="!disabled">
+						<view class="ai-upload-mask-icon">
+							<ai-icons :color="iconColor" type="remove" :size="iconSize" @tap="remove"></ai-icons>
+						</view>
 					</view>
 				</view>
 			</view>
