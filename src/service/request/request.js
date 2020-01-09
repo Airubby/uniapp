@@ -160,9 +160,10 @@ export default class Request {
       })
     }
 
-    get (url, options = {}) {
+    get (url,params, options = {}) {
       return this.request({
         url,
+        params:params,
         method: 'GET',
         ...options
       })

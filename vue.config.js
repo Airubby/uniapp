@@ -172,7 +172,7 @@ module.exports = {
             errors: true
         },
         host: '0.0.0.0',
-        port: 8081,
+        port: 8083,
         https: false,
         hotOnly: false,
         // 设置代理

@@ -20,7 +20,7 @@ import uniSegmentedControl from '@/components/uni-segmented-control/index.vue';
 		components: { nowEvent,hisEvent,threshold,uniSegmentedControl},
 		data() {
 			return {
-				current:0,
+				current:2,
 				items: [
 					'分类一',
 					'分类二',
