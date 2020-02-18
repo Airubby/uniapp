@@ -42,6 +42,11 @@
 				type: Boolean,
 				default: true
 			},
+			//默认开始的展示第几个图片
+			current:{
+				type:Number,
+				default:0,
+			},
 			picList:{
 				type: Array,
 				default () {
@@ -58,7 +63,6 @@
 				autoplay: false,
 				duration: 500,
 				circular: true,
-				current: 0,
 				isShowSwiper: false
 			}
 		},

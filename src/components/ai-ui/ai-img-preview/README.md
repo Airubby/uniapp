@@ -13,5 +13,6 @@ picList : [
         picPath: '/static/images/hotel3.png'
     },
 ]
-<ai-img-preview :picList="picList" ref="imgPreview"></ai-img-preview>
+current:0   默认展示第几个
+<ai-img-preview :picList="picList" :current="current" ref="imgPreview"></ai-img-preview>
 this.$refs['imgPreview'].open();
