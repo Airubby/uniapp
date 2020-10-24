@@ -1,11 +1,12 @@
 <template>
 	<view class="hbody">
-		<view class="top bgwhite">
+		<view class="top bgwhite" id="fixed-box">
 			<view class="ic_image ic_search fl"><img src="static/icons/ic_search.svg"></img></view>
 			<view class="ic_image ic_message fr"><img src="static/icons/ic_message.svg"></img></view>
 			<view class="ic_image ic_signin fr"><img src="static/icons/ic_signin.svg"></img></view>
 			<view class="ic_logo"><img src="static/images/index_logo.png"></img></view>
 		</view>
+        <view :style="fixedStyle"></view>
 		<view class="uni-slide">
 			<swiper :indicator-dots="true" :autoplay="true" :interval="5000" :duration="1000">
 				<swiper-item v-for="(item,index) in itemList" :key="index">
@@ -71,9 +72,22 @@ import { mapState,mapGetters } from 'vuex'
 		// computed: mapState(['app/forcedLogin', 'app/hasLogin', 'app/userName']),
 		// computed:mapGetters(['forcedLogin', 'app/hasLogin', 'app/userName']),
 		computed:{
-			...mapState('app',['forcedLogin', 'hasLogin', 'userName'])
-		},
+			...mapState('app',['forcedLogin', 'hasLogin', 'userName']),
+            fixedStyle(){
+				return `height:${this.fixedboxHeight}px`;
+			}
+        },
+        created(){
+            
+        },
 		onLoad() {
+            var _this = this;
+			let view = uni.createSelectorQuery().select("#fixed-box");
+			view.boundingClientRect(data => {						
+				console.log(data)
+				_this.fixedboxHeight=data.height;
+            }).exec();		
+            
 			console.log(this.$store.getters['app/ajaxUrl'])
 			console.log(this.forcedLogin)
 			if (!this.hasLogin) {
@@ -111,6 +125,7 @@ import { mapState,mapGetters } from 'vuex'
 		},
 		data() {
 			return {
+                fixedboxHeight:"",
 				itemList: [
 					{title:'img1',url:'static/images/slide.jpg'},
 					{title:'img2',url:'static/images/slide.jpg'},
@@ -149,9 +164,11 @@ import { mapState,mapGetters } from 'vuex'
 
 <style>
 	.top{
+        width: 100%;
 		height: 60px;
 		padding: 60px 40px 20px 40px;
-		position:relative;
+        position: fixed;
+        z-index: 999;
 	}
 	.ic_image,
 	.ic_image img{
