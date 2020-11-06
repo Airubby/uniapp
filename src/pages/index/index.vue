@@ -80,7 +80,12 @@ import { mapState,mapGetters } from 'vuex'
         created(){
             
         },
+        //再次切换 tabbar 页面，只会触发每个页面的onShow，不会再触发onLoad
+        onShow(){
+            console.log("每次更新")
+        },
 		onLoad() {
+            console.log("第一次更新")
             var _this = this;
 			let view = uni.createSelectorQuery().select("#fixed-box");
 			view.boundingClientRect(data => {						

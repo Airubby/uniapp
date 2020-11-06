@@ -18,7 +18,38 @@ export default {
 	},
 	onHide: function () {
 		console.log('App Hide')
-	}
+    },
+    methods:{
+        // 获取系统栏高度
+        async setAppInfo() {
+            let that = this;
+            return new Promise((resolve, reject) => {
+                uni.getSystemInfo({
+                    success: function (e) {
+                        Vue.prototype.StatusBar = e.statusBarHeight;
+                        // #ifdef H5
+                        Vue.prototype.CustomBar = e.statusBarHeight + 45;
+                        // #endif
+
+                        // #ifdef APP-PLUS
+                        if (e.platform == "android") {
+                        Vue.prototype.CustomBar = e.statusBarHeight + 50;
+                        } else {
+                        Vue.prototype.CustomBar = e.statusBarHeight + 45;
+                        }
+                        // #endif
+
+                        // #ifdef MP-WEIXIN
+                        let custom = wx.getMenuButtonBoundingClientRect();
+                        Vue.prototype.Custom = custom;
+                        Vue.prototype.CustomBar =
+                        custom.bottom + custom.top - e.statusBarHeight;
+                        // #endif
+                    },
+                });
+            });
+        },
+    }
 }
 </script>
 
