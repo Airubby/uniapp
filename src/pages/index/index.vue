@@ -1,10 +1,10 @@
 <template>
-	<view class="hbody">
+	<view class="hbody viewbox">
 		<view class="top bgwhite" id="fixed-box">
-			<view class="ic_image ic_search fl"><img src="static/icons/ic_search.svg"></img></view>
+			<view class="ic_image ic_search fl" @click="scroll"><img src="static/icons/ic_search.svg"></img></view>
 			<view class="ic_image ic_message fr"><img src="static/icons/ic_message.svg"></img></view>
 			<view class="ic_image ic_signin fr"><img src="static/icons/ic_signin.svg"></img></view>
-			<view class="ic_logo"><img src="static/images/index_logo.png"></img></view>
+			<view class="ic_logo" @click="getScrollTop"><img src="static/images/index_logo.png"></img></view>
 		</view>
         <view :style="fixedStyle"></view>
 		<view class="uni-slide">
@@ -38,6 +38,33 @@
 		</view>
 		<view class="content mb20">
 			<view class="title mb10">待办事项</view>
+			<view v-for="(item,index) in eventList1" :key="index">
+				<view class="bgwhite event-box mb20">
+					<view class="event-box-top">
+						<view class="event-box-toptitle" @click="goDetail(item)">{{item.title}}</view>
+						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">
+							<text v-if="item.type==1">巡检</text>
+							<text v-if="item.type==2">其它</text>
+						</view>
+						<view class="alarmType" :class="{'bg1':item.alarmType=='1','bg2':item.alarmType=='2','bg3':item.alarmType=='3'}"></view>
+					</view>
+					<view class="event-box-con">
+						<view class="event-box-conleft">
+							<text>{{item.code}}</text>
+							<view>
+								<text class="mr10">{{item.user}}</text><text>{{item.time}}</text>
+							</view>
+							<text class="fontcolor999">{{item.createTime}}</text>
+						</view>
+						<view class="event-box-conright">
+							<text>{{item.content}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+        <view class="content mb20" id="mubiao">
+			<view class="title mb10">滚动锚点</view>
 			<view v-for="(item,index) in eventList" :key="index">
 				<view class="bgwhite event-box mb20">
 					<view class="event-box-top">
@@ -80,21 +107,29 @@ import { mapState,mapGetters } from 'vuex'
         created(){
             
         },
-        //再次切换 tabbar 页面，只会触发每个页面的onShow，不会再触发onLoad
+        //再次切换 tabbar 页面，只会触发每个页面的onShow，不会再触发onLoad ,onTabItemTap监听点击了tabbar
+        /** tab点击 */
+        onTabItemTap(item) {   
+            console.log(item)
+        },  
         onShow(){
             console.log("每次更新")
         },
 		onLoad() {
             console.log("第一次更新")
+            for(let i=0;i<30;i++){
+                this.eventList.push({id:'3',title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'})
+            }
+
             var _this = this;
 			let view = uni.createSelectorQuery().select("#fixed-box");
 			view.boundingClientRect(data => {						
-				console.log(data)
+				// console.log(data.height)
 				_this.fixedboxHeight=data.height;
             }).exec();		
             
-			console.log(this.$store.getters['app/ajaxUrl'])
-			console.log(this.forcedLogin)
+			// console.log(this.$store.getters['app/ajaxUrl'])
+			// console.log(this.forcedLogin)
 			if (!this.hasLogin) {
                 uni.showModal({
                     title: '未登录',
@@ -121,7 +156,15 @@ import { mapState,mapGetters } from 'vuex'
                     }
                 });
             }
-		},
+
+            //获取屏幕高度
+            this.getScreenHeight();
+            //获取view距离顶部的距离
+            this.getScrollTop();
+        },
+        mounted(){
+            this.getScrollTop()
+        },
 		onReachBottom() {
 			console.log('上拉加载刷新');
 		},
@@ -131,6 +174,8 @@ import { mapState,mapGetters } from 'vuex'
 		data() {
 			return {
                 fixedboxHeight:"",
+                phoneHeight:"",
+                scrollviewHight:"",
 				itemList: [
 					{title:'img1',url:'static/images/slide.jpg'},
 					{title:'img2',url:'static/images/slide.jpg'},
@@ -141,7 +186,7 @@ import { mapState,mapGetters } from 'vuex'
 					'36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章'
 				],
 				navList:[
-					{title:'值班管理',url:'static/icons/ic_duty.svg',path:'/pages/env/index'},
+					{title:'分享操作',url:'static/icons/ic_duty.svg',path:'/pages/env/index'},
 					{title:'巡检管理',url:'static/icons/ic_polling.svg',path:'/pages/env/index'},
 					{title:'工单管理',url:'static/icons/ic_workorder.svg',path:'/pages/env/index'},
 					{title:'资产管理',url:'static/icons/ic_property.svg',path:'/pages/env/index'},
@@ -154,15 +199,53 @@ import { mapState,mapGetters } from 'vuex'
 					{id:'1',title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
 					{id:'2',title:'机房001配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'2',content:'待执行'},
 					{id:'3',title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'},
+                ],
+                eventList1:[
+					{id:'1',title:'UPS欠压排查维修',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'1',content:'待审批'},
+					{id:'2',title:'机房001配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'1',alarmType:'2',content:'待执行'},
+					{id:'3',title:'机房003配电系统例行巡检',user:'张三',time:'2018-11-13 12:30',createTime:'1小时前',code:'WOT-201807130001',type:'2',alarmType:'3',content:'待通过'},
 				]
 			}
 		},
 		methods: {
+            //获取屏幕高度
+            getScreenHeight:function(){
+                let _this=this;
+                uni.getSystemInfo({
+                    success(res) {
+                        _this.phoneHeight = res.windowHeight;
+                        console.log(res.windowHeight);
+                    }
+                });
+            },
+            //距离顶部距离
+            getScrollTop:function(){
+                let _this=this;
+                const query = uni.createSelectorQuery()
+                query.select('#mubiao').boundingClientRect()
+                query.selectViewport().scrollOffset()
+                query.exec(function(res){
+                    console.log(res)
+                    _this.scrollviewHight=res[0].top;
+                })
+            },
+            scroll:function(){
+                let _this=this;
+                uni.createSelectorQuery().select('#mubiao').boundingClientRect(data=>{//目标位置节点 类或者 id 
+                    uni.createSelectorQuery().select(".viewbox").boundingClientRect((res)=>{//最外层盒子节点类或者 id
+                　　　　uni.pageScrollTo({
+                　　　　　　duration:1000,//过渡时间
+                　　　　　　scrollTop:data.top - res.top,//到达距离顶部的top值；如果要目标位置出现在屏蔽底部，则减去屏幕高 - _this.phoneHeight
+                　　　　})
+                　　}).exec()
+                }).exec();
+            },
 			goDetail:function(item){
 				uni.navigateTo({
 					url: "/pages/workOrder/detail?detail=" + encodeURIComponent(JSON.stringify(item))
 				})
-			},
+            },
+            //
 		}
 	}
 </script>

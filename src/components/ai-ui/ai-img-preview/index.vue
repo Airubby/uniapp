@@ -5,7 +5,9 @@
 			<view class="uni-popup__wrapper-box" @click="close(true)">
 				<swiper @change="changeSwiper" class="my_swiper" :current="current" :circular="circular" :indicator-dots="indicatorDots" :autoplay="autoplay" :duration="duration">
 					<swiper-item v-for="(x, y) in picList" :key="y">
-						<view class="bg_img" :style="{ backgroundImage: 'url('+x.picPath+')'}"></view>
+						<!-- <view class="bg_img" :style="{ backgroundImage: 'url('+x.picPath+')'}"></view> -->
+                        <!-- 上面这种绑定，如果url中有括号就有问题 -->
+						<view class="bg_img" :style="bgStyle(x.picPath)"></view>
 					</swiper-item>
 				</swiper>
 				<view class="page" v-if="picList.length>0">{{ current + 1 }} / {{ picList.length }}</view>
@@ -65,6 +67,12 @@
 				circular: true,
 				isShowSwiper: false
 			}
+        },
+        computed: {
+			bgStyle(picPath) {
+				var style = `background-image: url("${picPath}")`;
+				return style
+			},
 		},
 		watch: {
 			show(newValue) {

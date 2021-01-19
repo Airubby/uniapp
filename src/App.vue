@@ -14,11 +14,19 @@ export default {
 		Vue.prototype.$api = request
 	},
 	onShow: function () {
-		console.log('App Show')
+        console.log('App Show')
+        //只有在tabBar页面才行；所以要在每个tabBar的onShow中设置
+        uni.setTabBarBadge({index: 2,text: '5'})
+        // uni.removeTabBarBadge({index:2})	//移除
+        // uni.showTabBarRedDot({index: 2 })  //给点
+        // uni.hideTabBarRedDot({index:2})
 	},
 	onHide: function () {
 		console.log('App Hide')
     },
+    onLoad(options) {
+		console.log("每个页面的参数获取的地方")
+	},
     methods:{
         // 获取系统栏高度
         async setAppInfo() {
