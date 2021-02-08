@@ -1,7 +1,10 @@
 <template>
 	<view class="content">
-		<view>
-            <text class="title">{{title}}</text>
+		<view class="tip">
+            <text class="iconfont icon-shuoming"></text>提示：长按图片保存至手机相册
+        </view>
+        <view class="poster">
+            <image :src="image" mode="widthFix" />
         </view>
 	</view>
 </template>
@@ -10,14 +13,34 @@
 	export default {
 		data() {
 			return {
-				title: '能效'
+                title: '能效',
+                image:"",  //图片地址
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-
+            //页面写上这个函数就可以微信分享
+            onShareAppMessage: function () {
+                return {
+                    title: "帮砍价",
+                    imageUrl: this.image,  //分享的图片地址
+                    path: "pages/env/index",  //路由path
+                    success(res) {
+                        uni.showToast({
+                            title: '分享成功'
+                        })
+                    },
+                    fail(res) {
+                        uni.showToast({
+                            title: '分享失败',
+                            icon: 'none'
+                        })
+                    }
+                }
+            },
+            
 		}
 	}
 </script>
