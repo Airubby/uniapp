@@ -1,0 +1,36 @@
+$mainColor: green;
+
+@mixin a_mixin {
+  color: $mainColor;
+  div {
+    float: left;
+  }
+}
+
+@mixin child {
+  @include a_mixin;
+  background-color: $mainColor;
+  a {
+    text-decoration: none;
+  }
+}
+
+#main {
+  margin: 0 5.625em;
+  h5, h6 {
+    font-size: 1em;
+    line-height: 1.25em;
+  }
+  .post {
+    text-align: left;
+    ul {
+      list-style-position: inside;
+      list-style-type: circle;
+      margin: 0.625em;
+    }
+  }
+  .post-dash {
+    @include child;
+    color: red;
+  }
+}

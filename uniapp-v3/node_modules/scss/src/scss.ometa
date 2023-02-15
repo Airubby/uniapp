@@ -1,0 +1,92 @@
+﻿ometa Scss <: Parser {
+  selector = foreign(CssSelector, 'selectors_group'):sel -> { self.addSelector(sel) },
+  
+  propertyValue = '$' letterOrDigit+:val -> ('$' + val.join(''))
+                | ('#' | '.' | ',' | '-' | space | letterOrDigit)+:val -> val.join(''),
+  property = spaces ('-' | letter)+:prop ":" spaces propertyValue:val ";" -> { self.addProperty({ name: prop.join(''), val: val }); },
+
+  blockBody = "{" (mixinInclude | property | scssBlock)* "}" -> { self.endBlock(); },
+  scssBlock = spaces selector blockBody,
+
+  scssVariable = "$" letter+:name ":" spaces propertyValue:val ";" -> { self.addVariable({ name: name.join(''), val: val }); },
+
+  mixinName = spaces ('-' | '_' | letterOrDigit)+:name -> name.join(''),
+  mixinInclude = "@include" mixinName:name ";" -> { self.addInclude(name); },
+  mixinDeclaration = "@mixin" mixinName:name -> { self.addMixin(name); },
+  scssMixin = mixinDeclaration blockBody,
+
+  scssFile = (scssVariable | scssMixin | scssBlock)* -> { self.getFile(); }
+}
+
+Scss.initialize = function() {
+  var blocks = [],
+      mixins = {},
+      variables = {},
+      file,
+      currentBlock;
+  
+  var createBlock = function() {
+    var parentBlock = currentBlock;
+    return {
+      blocks: [],
+      includes: [],
+      properties: [],
+      end: function() {
+        currentBlock = parentBlock;
+      }
+    };
+  };
+
+  this.addMixin = function(mixinName) {
+    var block = createBlock();
+    mixins[mixinName] = block;
+    currentBlock = block;
+  };
+
+  this.addProperty = function(prop) {
+    currentBlock.properties.push(prop);
+  };
+
+  this.addInclude = function(include) {
+    currentBlock.includes.push(include);
+  };
+
+  this.addSelector = function(sel) {
+    var block;
+    if(sel.selector) {
+      block = createBlock();
+      block.selector = sel.selector;
+      block.selectors = sel.selectors;
+      currentBlock.blocks.push(block);
+      currentBlock = block;
+    }
+  };
+
+  this.endBlock = function() {
+    currentBlock.end();
+  };
+
+  this.addVariable = function(variable) {
+    variables[variable.name] = variable.val;
+  };
+
+  this.getFile = function() {
+    return file;
+  };
+
+  file = {
+    blocks: [],
+    end: function() {
+      currentBlock = file;
+    },
+    getMixin: function(mixinName) {
+      return mixins[mixinName];
+    },
+    getValue: function(variableName) {
+      return variables[variableName];
+    }
+  };
+  currentBlock = file;
+};
+
+Scss

@@ -1,0 +1,273 @@
+/* 这里是状态栏 */
+.status_bar {
+	height: var(--status-bar-height);
+	width: 100%;
+}
+/* //引入自己的图片 */
+@font-face {
+	font-family: "myicon";
+	font-weight: normal;
+	font-style: normal;
+	src: url('~@/static/fonts/myicon.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "invenicon";
+	font-weight: normal;
+	font-style: normal;
+	src: url('~@/static/fonts/invenicon.ttf') format('truetype');
+}
+body {
+	background: #EFF1F6;
+}
+.txt-size-smaller {
+	font-size: 10px;
+}
+
+.txt-size-small {
+	font-size: 12px;
+}
+
+.txt-size-normal {
+	font-size: 14px;
+}
+
+.txt-size-big {
+	font-size: 16px;
+}
+
+.txt-size-biger {
+	font-size: 18px;
+}
+.bgwhite {
+	background: #ffffff;
+}
+.color-normal {
+	color: #36435B;
+}
+.color-tips {
+	color: #9aa1ad;
+}
+
+.color-active {
+	color: #146AFB;
+}
+.color-white {
+	color: #ffffff;
+}
+
+.color-black {
+	color: #000000;
+}
+
+.heightFull {
+	height: 100%;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.pd60 {
+	padding-top: 60upx;
+}
+
+.mb20 {
+	margin-bottom: 20upx;
+}
+
+.mb10 {
+	margin-bottom: 10upx;
+}
+
+uni-page-body,
+uni-page-refresh {
+	display: block;
+	height: 100%;
+}
+
+.content {
+	padding: 0 20upx;
+}
+
+.contenter {
+	width: 100%;
+	height: 100%;
+}
+
+.fontcolor999 {
+	color: #999;
+}
+
+.mr10 {
+	margin-right: 10upx;
+}
+
+.fontbg {
+	color: #50C984;
+	background: #DBFBE9;
+}
+
+.fontbg1 {
+	color: #FB9535;
+	background: #FFF6EC;
+}
+
+.bg1 {
+	background: #D30703;
+}
+
+.bg2 {
+	background: #FE5700;
+}
+
+.bg3 {
+	background: #FE9803;
+}
+
+
+/****/
+
+/*每个页面公共css */
+page {
+	width: 100%;
+	min-height: 100%;
+	display: block;
+	background-color: #fff;
+	font-size: 26upx;
+}
+
+/* #ifdef MP-BAIDU */
+page {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+swan-template {
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+}
+
+/* 原生组件模式下需要注意组件外部样式 */
+custom-component {
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+}
+
+/* #endif */
+
+/* #ifdef MP-ALIPAY */
+page {
+	min-height: 100vh;
+}
+
+/* #endif */
+
+/* 原生组件模式下需要注意组件外部样式 */
+m-input {
+	width: 100%;
+	/* min-height: 100%; */
+	display: flex;
+	flex: 1;
+}
+
+.content {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	background-color: #efeff4;
+	padding: 10upx;
+}
+
+.input-group {
+	background-color: #ffffff;
+	margin-top: 20upx;
+	position: relative;
+}
+
+.input-group::before {
+	position: absolute;
+	right: 0;
+	top: 0;
+	left: 0;
+	height: 1upx;
+	content: '';
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5);
+	background-color: #c8c7cc;
+}
+
+.input-group::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 1upx;
+	content: '';
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5);
+	background-color: #c8c7cc;
+}
+
+.input-row {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	font-size: 18upx;
+	line-height: 40upx;
+}
+
+.input-row .title {
+	width: 72upx;
+	padding-left: 15upx;
+}
+
+.input-row.border::after {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 8upx;
+	height: 1upx;
+	content: '';
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5);
+	background-color: #c8c7cc;
+}
+
+.btn-row {
+	margin-top: 25upx;
+	padding: 10upx;
+}
+
+button.primary {
+	background-color: #0faeff;
+}
+
+/* 其它 */
+
+.border_left_line {
+	border-left: 1px solid #E3E3E3;
+}
+
+.border_top_line {
+	border-top: 1px solid #E3E3E3;
+}
+
+.border_bottom_line {
+	border-bottom: 1px solid #E3E3E3;
+}
+
+.border_bottom_line_err {
+	border-bottom: 1px solid #FFA100;
+}
+
+.border_bottom_line_focus {
+	border-bottom: 1px solid #146AFB !important;
+}

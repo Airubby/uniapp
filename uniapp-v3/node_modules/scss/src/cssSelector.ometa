@@ -1,0 +1,162 @@
+﻿ometa CssSelector <: Parser {
+  crChar = '\r',
+  ffChar = '\f',
+  nlChar = '\n',
+  tabChar = '\t',
+  lineEnding = crChar | ffChar | nlChar,
+  tabOrLineEnding = tabChar | lineEnding,
+
+
+  ident = '-' nmstart:s nmchar*:cs -> { '-' + s + cs.join('') } 
+        | nmstart:s nmchar*:cs -> { s + cs.join('') },
+  name = nmchar+:n -> { n.join('') },
+  nmstart = ('_' | letter | nonascii | escape):n -> { n },
+  nonascii = '',
+  unicode = '',
+  escape = unicode | '',
+  nmchar = '_' | '-' | letterOrDigit | nonascii | escape,
+  num = digit+: d -> d.join('')
+      | digit* '.' digit+,
+  string = (string1 | string2):s -> { s },
+  //string1 = '\"' (~(lineEnding | '\"') | '\\' nl | nonascii | escape)*:s '\"' -> { '\"' + s.join('') + '\"' },
+  string1 = '"' letter*:s '"' -> { '"' + s.join('') + '"' },
+  string2 = '\'' (~(lineEnding | '\'') | '\\' nl | nonascii | escape)*:s '\'' -> { '\'' + s.join('') + '\'' },
+  //invalid = invalid1 | invalid2,
+  //invalid1 = '\"' (~(lineEnding | '\"') | '\\' nl | nonascii | escape)*,
+  //invalid2 = '\'' (~(lineEnding | '\'') | '\\' nl | nonascii | escape)*,
+  nl = crChar nlChar
+     | lineEnding,
+  D = 'd' | 'D',
+  E = 'e' | 'E',
+  N = 'n' | 'N',
+  O = 'o' | 'O',
+  T = 't' | 'T',
+  V = 'v' | 'V',
+
+
+  S = ' ' -> { ' ' }
+    | '\n' -> { '\n' },
+  INCLUDES = '~' '=' -> { '~=' },
+  DASHMATCH = '|' '=' -> { '|=' },
+  PREFIXMATCH = '^' '=' -> { '^=' },
+  SUFFIXMATCH = '$' '=' -> { '$=' },
+  SUBSTRINGMATCH = '*' '=' -> { '*=' },
+  IDENT = ident,
+  STRING = string:s -> { s },
+  FUNCTION = ident:i '(' -> { i + '(' },
+  NUMBER = num:n -> { n },
+  HASH = '#' name:n -> { '#' + n },
+  PLUS = S+ '+' -> { ' +' }
+       | '+' -> { '+' },
+  // First line of next selector is a Css Hack
+  GREATER = '>' '>' -> { '> >' }
+          | S+ '>' -> { ' >' }
+          | '>' -> { '>' },
+  COMMA = S+ ',' -> { ' ,' }
+        | ',' -> { ',' },
+  TILDE = S+ '~' -> { ' ~' }
+        | '~' -> { '~' },
+  NOT = ':' N O T '(' -> { ':not(' },
+  ATKEYWORD = '@' ident,
+  INVALID = invalid,
+  PERCENTAGE = num:n '%' -> { n + '%' },
+  DIMENSION = num:n ident:i -> { n + i },
+  CDO = '<' '!' '-' '-',
+  CDC = '-' '-' '>',
+
+
+  selectors_group = selector:pre comma_separated_selector* -> { self.addSelector(pre); self },
+  comma_separated_selector = COMMA:com S*:spacing selector:sel -> { self.addCommaSeparatedSelector(com + spacing.join(''), sel) },
+  selector = simple_selector_sequence:sim (combined_sequence)*:additional -> { sim + additional.join('') }
+           // Css Hack
+           | combined_sequence*:comb -> { comb.join('') },
+  combinator = PLUS:p S+ -> { p + ' ' }
+             | PLUS:p -> { p }
+             | GREATER:g S+ -> { g + ' ' }
+             | GREATER:g -> { g }
+             | TILDE:t S+ -> { t + ' ' }
+             | TILDE:t -> { t }
+             | S+:spacing -> { spacing.join('') },
+  combined_sequence = combinator+:comb simple_selector_sequence:sel -> { comb.join('') + sel },
+  non_namespaced_selector = (HASH | class | attrib | negation | pseudo):sel -> { sel },
+  simple_selector_sequence = namespace_prefix:pre '*' non_namespaced_selector*:post -> { pre + '*' + post.join('') }
+                           | namespace_prefix:pre element_name:ele non_namespaced_selector*:post -> { pre + ele + post.join('') }
+                           | '*' non_namespaced_selector*:post -> { '*' + post.join('') }
+                           | element_name:ele non_namespaced_selector*:post -> { ele + post.join('') }
+                           | non_namespaced_selector+:sels -> { sels.join('') }
+                           // Css Hack
+                           | expression:ex -> { ex },
+  namespace_prefix = ('*' | IDENT):pre '|' -> { pre + '|' }
+                   | '|' -> { '|' },
+  // First line of the next selector is a Css Hack
+  element_name = IDENT:i '*' -> { i + '*' }
+               | IDENT:i -> { i },
+  class = '.' IDENT:i -> { '.' + i },
+
+  attrib = '[' S* possible_namespaced_attrib:att ']' -> { '[' + att + ']' },
+  possible_namespaced_attrib = namespace_prefix:pre ident_with_possible_postfix:post -> { pre + post }
+                             | ident_with_possible_postfix:post -> { post },
+  ident_with_possible_postfix = IDENT:left S* attrib_match:match S* (IDENT | STRING):right S* -> { left + match + right }
+                              | IDENT:i S* -> { i },
+  attrib_match = (PREFIXMATCH | SUFFIXMATCH | SUBSTRINGMATCH | equals_match | INCLUDES | DASHMATCH):m -> { m },
+  equals_match = '=' -> { '=' },
+  pseudo = ':' ':' (functional_pseudo | IDENT):i -> { '::' + i }
+         | ':' (functional_pseudo | IDENT):i -> { ':' + i },
+  functional_pseudo = FUNCTION:f S* full_expression:e ')' -> { f + e + ')' }
+                    // Css Hack for :-moz-any(...)
+                    | FUNCTION:f S* selectors_group:sel ')' -> { f + sel.toString() + ')' },
+
+  expression_content = (PLUS | '-' | PERCENTAGE | DIMENSION | NUMBER | STRING | IDENT):e -> { e },
+  expression = expression_content:ec S+ expression:e -> { ec + ' ' + e }
+             | expression_content:ec expression:e -> { ec + e }
+             | expression_content:ec S* -> { ec },
+  full_expression = (expression)+:ea -> { ea.join('') },
+  negation = NOT:n S* negation_arg:na S* ')' -> { n + na + ')' },
+
+  //negation_arg = (type_selector | universal | HASH | class | attrib | pseudo):na -> { na }
+  //Technically not allowed, but here for scss compatibility
+  negation_arg = selectors_group:sg -> { sg.toString() }
+}
+
+CssSelector.initialize = function() {
+  var hasBeenStringified = false,
+      self = this;
+
+  this.selector;
+  this.selectors = [];
+  this.commaSeparatedSelectors = [];
+
+  var resetFields = function() {
+    self.selector = null;
+    self.selectors = [];
+    self.commaSeparatedSelectors = [];
+    hasBeenStrigified = false;
+  };
+
+  this.addSelector = function(sel) {
+    if(hasBeenStringified) {
+      resetFields();
+    }
+    this.selector = sel;
+  };
+
+  this.addCommaSeparatedSelector = function(commaAndSpacing, selector) {
+    if(hasBeenStringified) {
+      resetFields();
+    }
+    this.selectors.push(selector);
+    this.commaSeparatedSelectors.push({
+      commaAndSpacing: commaAndSpacing,
+      selector: selector
+    });
+  };
+
+  this.toString = function() {
+    hasBeenStringified = true;
+    return this.selector + this.commaSeparatedSelectors.map(function(csSel) {
+      return csSel.commaAndSpacing + csSel.selector;
+    }).join('');
+  };
+};
+
+CssSelector
