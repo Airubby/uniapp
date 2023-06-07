@@ -56,8 +56,8 @@
 					<view class="event-box-top">
 						<view class="event-box-toptitle" @click="goDetail(item)">{{item.title}}</view>
 						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">
-							<text v-if="item.type==1">巡检</text>
-							<text v-if="item.type==2">其它</text>
+							<text v-if="item.type=='1'">巡检</text>
+							<text v-if="item.type=='2'">其它</text>
 						</view>
 						<view class="alarmType"
 							:class="{'bg1':item.alarmType=='1','bg2':item.alarmType=='2','bg3':item.alarmType=='3'}">
@@ -85,8 +85,8 @@
 					<view class="event-box-top">
 						<view class="event-box-toptitle" @click="goDetail(item)">{{item.title}}</view>
 						<view class="type" :class="{'fontbg1':item.type=='1','fontbg':item.type=='2'}">
-							<text v-if="item.type==1">巡检</text>
-							<text v-if="item.type==2">其它</text>
+							<text v-if="item.type=='1'">巡检</text>
+							<text v-if="item.type=='2'">其它</text>
 						</view>
 						<view class="alarmType"
 							:class="{'bg1':item.alarmType=='1','bg2':item.alarmType=='2','bg3':item.alarmType=='3'}">
@@ -111,15 +111,14 @@
 </template>
 
 <script setup lang="ts">
-	import {
-		reactive,
-		toRefs,
-		computed
-	} from 'vue'
-	import {
-		onLoad
-	} from '@dcloudio/uni-app'
-
+	import { reactive, toRefs, computed } from 'vue'
+	import { onLoad } from '@dcloudio/uni-app'
+	// import testApi from "@/api/modules/test"
+	import {testApi} from "@/api/index"
+	import {usePermissionStore} from "@/store/index"
+	import { Encrypto } from "@/utils/AEScrypto"
+	const permissionStore = usePermissionStore();
+	
 	onLoad(() => {
 		let forcedLogin = false; //模拟不需要强制登录
 		let hasLogin = false; //模拟没有登录
@@ -149,9 +148,31 @@
 				},
 			});
 		}
+		
+		
+		test();
+		
 	})
-
+	
+	const test=()=>{
+		//测试post
+		testApi.login({username:"admin",password:"Loncom@2022#"}).then((res:any)=>{
+			if(res.errorCode=="0"){
+				permissionStore.setToken(res.responseContent.token)
+				testApi.getPage({userid:"99999999999999999",bu:"home"}).then(res=>{
+					
+				})
+			}
+		})
+		//测试get
+		testApi.getCode().then(res=>{
+			
+		})
+		
+	}
+	
 	const state = reactive({
+		fixedboxHeight:"",
 		itemList: [{
 				title: "img1",
 				url: "/static/images/index/slide.jpg"

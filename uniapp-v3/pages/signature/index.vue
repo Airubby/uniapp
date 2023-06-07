@@ -160,27 +160,30 @@
 				canvash = res.windowHeight;
 			},
 		})
-		//其它功能问题
-		//注意：url是你要下载的文件路径，  xlsName（变量，随便命名） 是文件的后缀名，用于文件命名和格式修改
-		let dtask = plus.downloader.createDownload("url",{
-			//1.本地路径开头使用file://;
-			//2.Android平台本地绝对路径为"storage/emulated/0",就是用户文件管理器能看到的了;
-			//3.创建"xxx"作为文件夹名称，后缀是用于文件命名和格式修改，大家可以使用变量。
-			filename: 'file://storage/emulated/0/xxx/' + "xlsName" //利用保存路径，实现下载文件的重命名
-			},function(d, status) {//d为下载的文件对象;status下载状态
-				console.log(d)
-				if (status == 200) {//下载成功
-					console.log("下载成功")
-					//d.filename是文件在保存在本地的相对路径，使用下面的API可转为平台绝对路径
-					let fileSaveUrl = plus.io.convertLocalFileSystemURL(d.filename);
-					plus.runtime.openFile(d.filename); //选择软件打开文件
-				} else {//下载失败
-					console.log("下载失败")
-					plus.downloader.clear(); //清除下载任务
+		document.addEventListener("plusready",function(){
+			//其它功能问题
+			//注意：url是你要下载的文件路径，  xlsName（变量，随便命名） 是文件的后缀名，用于文件命名和格式修改
+			let dtask = plus.downloader.createDownload("url",{
+				//1.本地路径开头使用file://;
+				//2.Android平台本地绝对路径为"storage/emulated/0",就是用户文件管理器能看到的了;
+				//3.创建"xxx"作为文件夹名称，后缀是用于文件命名和格式修改，大家可以使用变量。
+				filename: 'file://storage/emulated/0/xxx/' + "xlsName" //利用保存路径，实现下载文件的重命名
+				},function(d, status) {//d为下载的文件对象;status下载状态
+					console.log(d)
+					if (status == 200) {//下载成功
+						console.log("下载成功")
+						//d.filename是文件在保存在本地的相对路径，使用下面的API可转为平台绝对路径
+						let fileSaveUrl = plus.io.convertLocalFileSystemURL(d.filename);
+						plus.runtime.openFile(d.filename); //选择软件打开文件
+					} else {//下载失败
+						console.log("下载失败")
+						plus.downloader.clear(); //清除下载任务
+					}
 				}
-			}
-		);
-		// dtask.start();//启用
+			);
+			// dtask.start();//启用
+		});
+		
 	})
 	/**
 	 * 生命周期函数--监听页面加载

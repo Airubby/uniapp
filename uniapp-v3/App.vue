@@ -15,6 +15,12 @@
 
 	onLaunch(() => {
 		console.log('App Launch 初始化完成时（全局只触发一次）')
+		// uni.removeStorage({
+		// 	key: 'token',
+		// 	success: function (res) {
+		// 		console.log('初始化的时候删除token，但刷新就没token了');
+		// 	}
+		// });
 	})
 	onShow(() => {
 		console.log('App Show 每次更新')
@@ -33,13 +39,29 @@
 		console.log(item);
 	})
 	onLoad(() => {
+		uni.showToast({
+		    title: '提示',
+		    //将值设置为 success 或者直接不用写icon这个参数
+		    icon: 'none',
+		    //显示持续时间为 2秒
+		    duration: 2000
+		})
+		uni.showLoading({
+		    title: '加载中...'
+		});
+		// 数据从后端接口返回后，提示弹框关闭
+		uni.hideLoading();
 		console.log('App Load 第一次更新 每个页面的参数获取的地方,子页面返回不更新')
 	})
 	onUnload(() => {
 		console.log('App Unload 销毁执行')
 	})
 	onReady(()=>{
-		console.log("监听页面初次渲染完成。注意如果渲染速度快，会在页面进入动画完成前触发")
+		console.log("监听页面初次渲染完成。获取dom元素在此生命周期。注意如果渲染速度快，会在页面进入动画完成前触发")
+		// let query = uni.createSelectorQuery();
+		// query.select("#fixed-box").boundingClientRect((data:any) => {
+		// 	console.log("得到布局位置信息",JSON.stringify(data))
+		// }).exec();
 	})
 	onHide(() => {
 		console.log('App Hide 页面隐藏,与onShow相反')

@@ -89,7 +89,7 @@
 		onUnload
 	} from '@dcloudio/uni-app'
 
-	import popupSure from "@/components/my-ui/popup/popup-sure.vue"
+	import popupSure from "@/components/popup/popup-sure.vue"
 
 	onUnload(() => {
 		clearTimer()

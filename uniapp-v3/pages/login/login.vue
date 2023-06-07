@@ -49,15 +49,8 @@
 </template>
 
 <script setup lang="ts">
-	import {
-		reactive,
-		toRefs,
-		ref
-	} from 'vue'
-	import {
-		onShow,
-		onLoad,
-	} from '@dcloudio/uni-app'
+	import { reactive, toRefs, ref } from 'vue'
+	import { onShow, onLoad } from '@dcloudio/uni-app'
 	const state = reactive({
 		initparam: {
 			username: '',
@@ -70,7 +63,7 @@
 		showClearIcon: false,
 		showPassword: true,
 	})
-	const toipset = () => {}
+	const toipset = () => { }
 	const clearInput = (event) => {
 		state.initparam.username = event.detail.value;
 		if (event.detail.value.length > 0) {
@@ -117,15 +110,7 @@
 	onLoad((e) => {
 
 	})
-	const {
-		initparam,
-		infor,
-		nameline,
-		psline,
-		showClearIcon,
-		showPassword,
-		offline
-	} = toRefs(state)
+	const { initparam, infor, nameline, psline, showClearIcon, showPassword, offline } = toRefs(state)
 </script>
 
 <style scoped lang="less">

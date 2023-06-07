@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-import { getFullURL } from './getFullURL'
+// import { getFullURL } from './getFullURL'
 
 const service = axios.create({
 	// Web 侧可以通过 vite.config.js 中的 proxy 配置，指定代理
@@ -17,12 +17,13 @@ const service = axios.create({
 	adapter(config) {
 		console.log('request adapter ↓↓')
 		console.log(config)
-		const { url, method, data, params, headers, baseURL, paramsSerializer } =
-			config
+		const { url, method, data, params, headers, baseURL, paramsSerializer } = config
+		var buildURL = require('axios/lib/helpers/buildURL');
 		return new Promise((resolve, reject) => {
 			uni.request({
 				method: method!.toUpperCase() as any,
-				url: getFullURL(baseURL || '', url!, params, paramsSerializer),
+				// url: getFullURL(baseURL || '', url!, params, paramsSerializer),
+				url: baseURL + buildURL(url, params, paramsSerializer),
 				header: headers,
 				data,
 				dataType: 'json',

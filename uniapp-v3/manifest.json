@@ -15,7 +15,10 @@
             "autoclose" : true,
             "delay" : 0
         },
-        "modules" : {},
+        "modules" : {
+            "Bluetooth" : {},
+            "Geolocation" : {}
+        },
         "distribute" : {
             "android" : {
                 "permissions" : [
@@ -37,7 +40,30 @@
                 ]
             },
             "ios" : {},
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {},
+                "geolocation" : {
+                    "system" : {
+                        "__platform__" : [ "ios", "android" ]
+                    }
+                }
+            }
+        },
+        "nativePlugins" : {
+            "sand-plugin-bluetooth" : {
+                "__plugin_info__" : {
+                    "name" : "自定义低功耗蓝牙API原生插件",
+                    "description" : "uni-app 蓝牙API插件",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=8551",
+                    "android_package_name" : "com.loncom.application",
+                    "ios_bundle_id" : "com.loncom.application",
+                    "isCloud" : true,
+                    "bought" : 1,
+                    "pid" : "8551",
+                    "parameters" : {}
+                }
+            }
         }
     },
     "quickapp" : {},

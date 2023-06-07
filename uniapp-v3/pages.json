@@ -61,13 +61,43 @@
 		]
 	},
 	{
+		"root": "pages/funmodule",
+		"pages": [{
+				"path": "index",
+				"aliasPath": "/", //对于h5端你必须在首页加上aliasPath并设置为/
+				"style": {
+					"navigationBarTitleText": "功能模块"
+					// "navigationStyle":"custom"
+				}
+			},
+			{
+				"path": "input",
+				"style": {
+					"navigationBarTitleText": "input聚焦提示"
+				}
+			},
+			{
+				"path": "bluetooth",
+				"style": {
+					"navigationBarTitleText": "蓝牙传输"
+				}
+			},
+			{
+				"path": "network",
+				"style": {
+					"navigationBarTitleText": "网络信息"
+				}
+			}
+		]
+	},
+	{
 		"root": "pages/scan",
 		"pages": [{
 				"path": "index",
 				"aliasPath": "/", //对于h5端你必须在首页加上aliasPath并设置为/
 				"style": {
-					"navigationBarTitleText": "扫描",
-					"navigationStyle":"custom"
+					"navigationBarTitleText": "扫描"
+					// "navigationStyle":"custom"
 				}
 			},
 			{
@@ -96,10 +126,10 @@
 				"text": "数字签名"
 			},
 			{
-				"pagePath": "pages/scan/index",
+				"pagePath": "pages/funmodule/index",
 				"iconPath": "static/images/tabbar/tab-mine.png",
 				"selectedIconPath": "static/images/tabbar/tab-mine-selected.png",
-				"text": "扫描码"
+				"text": "功能模块"
 			},
 			{
 				"pagePath": "pages/mine/index",

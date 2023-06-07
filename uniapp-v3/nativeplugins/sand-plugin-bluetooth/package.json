@@ -1,0 +1,57 @@
+{
+    "name": "sand-plugin-bluetooth",
+    "id": "sand-plugin-bluetooth",
+    "version": "1.0.0",
+    "description": "低功耗蓝牙API原生插件",
+    "_dp_type":"nativeplugin",
+    "_dp_nativeplugin":{
+        "android": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "sand-plugin-bluetooth",
+                    "class": "com.sand.bluetooth.SandPluginBluetooth"
+                }
+            ],
+            "integrateType": "aar",
+            "compileOptions": {
+                "sourceCompatibility": "1.8",
+                "targetCompatibility": "1.8"
+            },
+            "minSdkVersion": "20",
+            "permissions": [  
+                "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
+                "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",
+                "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>"
+            ],
+            "dependencies": [
+              "com.vise.xiaoyaoyou:viselog:1.1.2"
+            ],
+            "useAndroidX": false
+        },
+        "ios": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "sand-plugin-bluetooth",
+                    "class": "SandPluginBluetooth" 
+                }
+            ],
+            "integrateType": "framework",
+            "hooksClass": "SandPluginBluetoothProxy",
+             "capabilities": {
+                "entitlements": {
+                },  
+                "plists": {
+                    "NSBluetoothPeripheralUsageDescription" : "使用蓝牙功能，用于蓝牙配网",
+                    "NSBluetoothAlwaysUsageDescription" : "使用蓝牙功能，用于蓝牙配网"
+                }  
+            },
+            "privacyDescription" : {
+                "NSBluetoothPeripheralUsageDescription" : "使用蓝牙功能",
+                "NSBluetoothAlwaysUsageDescription" : "使用蓝牙功能"
+            },
+            "deploymentTarget": "9.0"
+        }
+    }
+}
