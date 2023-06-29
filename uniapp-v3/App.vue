@@ -42,10 +42,11 @@
 		uni.showToast({
 		    title: '提示',
 		    //将值设置为 success 或者直接不用写icon这个参数
-		    icon: 'none',
-		    //显示持续时间为 2秒
+		    icon: 'none',  //success,error,none,loading   success,error最多7个字符，none两行字符
+		    //显示持续时间为 2秒  默认：1500
 		    duration: 2000
 		})
+		uni.hideToast()
 		uni.showLoading({
 		    title: '加载中...'
 		});
@@ -67,7 +68,31 @@
 		console.log('App Hide 页面隐藏,与onShow相反')
 	})
 	onBackPress((event) => {
-		console.log(event, "点击返回按钮")
+		console.log(event, "点击返回按钮,原生头部返回及手机返回")
+		if (event.from == 'backbutton') {
+		    uni.showModal({
+		        title: '提示',
+		        content: '是否保存？',
+		        success: function (res) {
+		            if (res.confirm) {
+		                uni.showToast({
+		                    title: '用户点击确定',
+		                    duration: 1000
+		                })
+		            } else if (res.cancel) {
+		                uni.showToast({
+		                    title: '用户点击取消',
+		                    duration: 1000
+		                })
+		            }
+		            uni.navigateBack({
+		                delta: 1
+		            });
+		        }
+		    });
+		    return true; //阻止默认返回行为
+		}
+		
 		// 暂不支持直接在自定义组件中配置该函数
 		// Android 实体返回键 (from = backbutton) 
 		// 顶部导航栏左边的返回按钮 (from = backbutton) 

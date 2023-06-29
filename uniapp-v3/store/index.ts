@@ -1,7 +1,7 @@
 import { createPinia } from "pinia";
 import { createPersistedState } from "pinia-plugin-persistedstate";
 
-const pinia = createPinia()
+const pinia:any = createPinia()
 pinia.use(createPersistedState({
   serializer: { // 指定参数序列化器
     serialize: JSON.stringify,

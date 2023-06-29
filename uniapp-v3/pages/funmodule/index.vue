@@ -4,7 +4,10 @@
 		<view>
 			<text class="title">功能列表</text>
 			<view>
-				<view class="list" @tap='listClick(item.navPath)' v-for="(item,index) in List" :key="index">{{item.name}}</view>
+				<view class="list" @tap='listClick(item.navPath)' v-for="(item,index) in List" :key="index">
+				{{item.name}}
+				<uni-icons type="forward" size="30" color="#fff" customPrefix="" @click="listClick(item.navPath)"></uni-icons>
+				</view>
 			</view>
 		</view>
 		<popup ></popup>
@@ -25,7 +28,7 @@
 	const state=reactive({
 		List:[
 			{name:"扫描码",navPath:"/pages/scan/index"},
-			{name:"input聚焦提示",navPath:"/pages/funmodule/input"},
+			{name:"Dom-Show",navPath:"/pages/funmodule/dom"},
 			{name:"蓝牙传输数据",navPath:"/pages/funmodule/bluetooth"},
 			{name:"网络信息",navPath:"/pages/funmodule/network"},
 		]
@@ -33,7 +36,7 @@
 	
 	const listClick = (path) => {
 		uni.navigateTo({
-			url: path,
+			url: path+"key=1&value=2",
 		});
 	}
 	const {List} = toRefs(state)

@@ -55,6 +55,9 @@ form {
 .uni-page-head{
 	text-align: center;
 }
+.uni-page-head .uni-page-head-btn svg{
+	margin-top: 4px !important;
+}
 .uni-page-head-title {
 	display: inline-block;
 	padding: 0 40px;
@@ -64,6 +67,9 @@ form {
 	color: #BEBEBE;
 	box-sizing: border-box;
 	border-bottom: 2px solid #D8D8D8;
+}
+.uni-page-head-ft{
+	padding-right: 10px;
 }
 .uni-page-body {
 	width: 100%;

@@ -19,12 +19,6 @@
 			}
 		},
 		{
-			"path": "pages/mine/index",
-			"style": {
-				"navigationBarTitleText": "我的"
-			}
-		},
-		{
 			"path": "pages/workOrder/detail",
 			"style": {
 				"navigationBarTitleText": "工单详情"
@@ -66,14 +60,29 @@
 				"path": "index",
 				"aliasPath": "/", //对于h5端你必须在首页加上aliasPath并设置为/
 				"style": {
-					"navigationBarTitleText": "功能模块"
-					// "navigationStyle":"custom"
+					"navigationBarTitleText": "功能模块",
+					// "navigationStyle":"custom",
+					"app-plus": {
+						"titleNView": {
+							"buttons": [{
+								"text": "提交",
+								"fontSrc": "/static/iconfont.ttf",
+								"fontSize": "16px",
+								"color": "#000000",
+								"float": "left"
+							}]
+						}
+					}
 				}
 			},
 			{
-				"path": "input",
+				"path": "dom",
 				"style": {
-					"navigationBarTitleText": "input聚焦提示"
+					"navigationBarTitleText": "Dom-Show",
+					"app-plus": {
+						"popGesture": "close",  //close启用侧滑，none禁用侧滑 
+						"bounce": "none"  //禁止上下拖动页面  all,horizontal,vertical,none
+					}
 				}
 			},
 			{
@@ -104,6 +113,22 @@
 				"path": "scan",
 				"style": {
 					"navigationBarTitleText": "扫一扫"
+				}
+			}
+		]
+	},
+	{
+		"root": "pages/mine",
+		"pages": [{
+				"path": "index",
+				"style": {
+					"navigationBarTitleText": "我的"
+				}
+			},
+			{
+				"path": "carTime",
+				"style": {
+					"navigationBarTitleText": "表单车牌日期"
 				}
 			}
 		]
@@ -144,7 +169,7 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-		// "navigationStyle":"custom"
+		// "navigationStyle":"custom"  //custom取消默认的原生导航栏，自定义导航栏
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

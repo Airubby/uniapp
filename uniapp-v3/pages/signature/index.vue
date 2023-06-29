@@ -204,6 +204,8 @@
 
 <style scoped lang="less">
 	.contents {
+		width: 100%;
+		height: 100%;
 		padding-top: 20upx;
 		padding-bottom: 100upx;
 		box-sizing: border-box;
@@ -220,7 +222,7 @@
 		display: flex;
 		height: 100upx;
 		width: 750upx;
-		position: fixed;
+		position: absolute;
 		left: 0;
 		bottom: 0;
 		font-size: 30upx;
