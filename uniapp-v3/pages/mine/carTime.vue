@@ -6,22 +6,22 @@
 				<view class="inforitem border-bottom">
 					<text class="list-title">访问区域</text>
 					<text class="list-con"></text>
-					<uni-icons type="forward" size="16"></uni-icons>
+					<uni-icons type="forward" size="16" color="#9aa1ad"></uni-icons>
 				</view>
 				<view class="inforitem border-bottom" @click="selectType()">
 					<text class="list-title">访问类型</text>
 					<text class="list-con">内部维护</text>
-					<uni-icons type="forward" size="16"></uni-icons>
+					<uni-icons type="forward" size="16" color="#9aa1ad"></uni-icons>
 				</view>
 				<view class="inforitem border-bottom" @click="selectTime('inTime')">
 					<text class="list-title">预约来访时间</text>
 					<text class="list-con">{{initParams.inTime}}</text>
-					<uni-icons type="forward" size="16"></uni-icons>
+					<uni-icons type="forward" size="16" color="#9aa1ad"></uni-icons>
 				</view>
 				<view class="inforitem border-bottom" @click="selectTime('outTime')">
 					<text class="list-title">预约离访时间</text>
 					<text class="list-con">{{initParams.outTime}}</text>
-					<uni-icons type="forward" size="16"></uni-icons>
+					<uni-icons type="forward" size="16" color="#9aa1ad"></uni-icons>
 				</view>
 			</view>
 			<view class="txt-size-big listtitle">人员陪同信息</view>
@@ -61,16 +61,16 @@
 			<view class="inforcontent">
 				<view class="inforitem border-bottom">
 					<text class="list-title">姓名</text>
-					<text class="list-con">
+					<view class="list-con">
 						<input class="iac-input" placeholder="输入姓名" v-model="addInfo.user" />
-					</text>
+					</view>
 				</view>
 				<view class="inforitem border-bottom">
 					<text class="list-title">是否驾车</text>
-					<text class="list-con">
+					<view class="list-con">
 						<custom-switch class="switch-btn" @change="change" v-model="addInfo.useCar" :activeValue="true" :inactiveValue="false"
 						inactiveColor="#797979" activeColor="#00AB6F" :size="16"></custom-switch>
-					</text>
+					</view>
 				</view>
 				<view class="carInfo">
 					<car-number-input v-show="addInfo.useCar" @numberInputResult="numberInputResult" :defaultStr="addInfo.carInfo"></car-number-input>

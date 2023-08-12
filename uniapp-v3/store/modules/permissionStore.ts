@@ -4,7 +4,8 @@ const usePermissionStore = defineStore('permissionStore', {
 	// arrow function recommended for full type inference
 	state: () => ({
 		token: "",
-		baseURL:""
+		baseURL:"",
+		limits:[]  //权限
 	}),
 	getters: {
 		
@@ -16,10 +17,13 @@ const usePermissionStore = defineStore('permissionStore', {
 		setBaseURL(baseURL: string) {
 		    this.baseURL = baseURL;
 		},
+		setLimits(limits:any[]){
+			this.limits=limits;
+		}
 	},
-	persist: {
-		storage: sessionStorage,
-		paths: ["token", "baseURL"],
+	persist: {  //只有localStorage
+		storage: localStorage,
+		paths: ["token", "baseURL","limits"],
 		beforeRestore: context => {
 		  // console.log("Before" + context);
 		},

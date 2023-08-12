@@ -12,9 +12,23 @@
 		onReachBottom,
 		onPullDownRefresh
 	} from '@dcloudio/uni-app'
-
+	import { onMounted, getCurrentInstance  } from "vue"
 	onLaunch(() => {
 		console.log('App Launch 初始化完成时（全局只触发一次）')
+		
+		// #ifdef APP-PLUS
+		console.log("仅出现在 App 平台下的代码")
+		// #endif
+		
+		// #ifndef H5
+		console.log("除了 H5 平台，其它平台均存在的代码")
+		// #endif
+		
+		// #ifdef H5 || MP-WEIXIN
+		console.log("在 H5 平台或微信小程序平台存在的代码（这里只有||，不可能出现&&，因为没有交集）")
+		// #endif
+		
+		
 		// uni.removeStorage({
 		// 	key: 'token',
 		// 	success: function (res) {
@@ -38,7 +52,8 @@
 	onTabItemTap((item) => {
 		console.log(item);
 	})
-	onLoad(() => {
+	onLoad((option) => {
+		//option是对象{fromURL:"/pages/home/index"} url: "/pages/login/index?fromURL=/pages/home/index",
 		uni.showToast({
 		    title: '提示',
 		    //将值设置为 success 或者直接不用写icon这个参数
@@ -52,6 +67,10 @@
 		});
 		// 数据从后端接口返回后，提示弹框关闭
 		uni.hideLoading();
+		
+		uni.setNavigationBarTitle({
+			title: "动态设置title"
+		})
 		console.log('App Load 第一次更新 每个页面的参数获取的地方,子页面返回不更新')
 	})
 	onUnload(() => {
@@ -106,7 +125,10 @@
 	onPullDownRefresh(() => {
 		console.log("下拉加载刷新");
 	})
-	onNavigationBarButtonTap(() => {
+	onNavigationBarButtonTap((event) => {
+		if(event.index == 0){
+			console.log("点击了第一个按钮")
+		}
 		console.log("监听原生标题栏按钮点击事件,在pages.json中配置的导航按钮")
 		// {
 		//     "path": "pages/xxx/xxx",
@@ -125,6 +147,14 @@
 		//         }
 		//     }
 		// }
+	})
+	
+	onMounted(()=>{
+		// this.$mp.getAppWebview()     v2
+		// v3
+		// let pages = getCurrentPages();
+		// let page: any = pages[pages.length - 1];
+		// let ws = page.$getAppWebview();
 	})
 </script>
 <style lang="less">

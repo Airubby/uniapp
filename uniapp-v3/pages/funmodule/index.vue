@@ -31,12 +31,13 @@
 			{name:"Dom-Show",navPath:"/pages/funmodule/dom"},
 			{name:"蓝牙传输数据",navPath:"/pages/funmodule/bluetooth"},
 			{name:"网络信息",navPath:"/pages/funmodule/network"},
+			{name:"拨打电话",navPath:"/pages/funmodule/telphone"},
 		]
 	})
 	
 	const listClick = (path) => {
 		uni.navigateTo({
-			url: path+"key=1&value=2",
+			url: path+"?key=1&value=2",
 		});
 	}
 	const {List} = toRefs(state)

@@ -12,6 +12,4 @@ pinia.use(createPersistedState({
 export default pinia
 
 
-
-export { default as useCountStore } from './modules/countStore'
 export { default as usePermissionStore } from './modules/permissionStore'

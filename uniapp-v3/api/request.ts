@@ -1,12 +1,11 @@
 
 // import usePermissionStore from "@/store/modules/permissionStore"
 import {usePermissionStore} from "@/store/index"
-const permissionStore = usePermissionStore();
 
 const baseConfig = { // 有效配置项只有三个
 	// baseURL: 'https://www.fastmock.site/mock/b5aeba034aac038de76b613109a5cce7/test', //baseURL
 	baseURL: "http://ymk.loncomip.com:3310",
-	timeout: 30000, // 超时时间
+	timeout: 5000, // 超时时间
 }
 
 let acitveAxios = 0;
@@ -37,11 +36,13 @@ const closeLoading = (config) => {
 	}
 };
 function request(method, url, data , config) {
-	let timer;
+	const permissionStore = usePermissionStore();
+	let reqtimer;
 	let timeout = baseConfig.timeout;
 	if(config && config.timeout){
 		timeout = config.timeout
 	}
+	
 	let header= {
 		"Content-Type": "application/json;charset=utf-8",
 		"Token":permissionStore.token
@@ -62,21 +63,21 @@ function request(method, url, data , config) {
 			header,
 			timeout,
 			success: res => {
-				clearTimeout(timer)
+				clearTimeout(reqtimer)
 				res.statusCode === 200 ? resolve(res.data) : reject(res.data)
 			},
 			fail: res => {
-				clearTimeout(timer)
+				clearTimeout(reqtimer)
 				_watcher.abort ? reject({errorCode:-1,message:'网络请求失败：主动取消'}) : reject({errorCode:-1,message:'网络请求失败：（URL无效|无网络|DNS解析失败|请求时间过长）'})
 			}
 		})
-		timer = setTimeout(() => {
+		reqtimer = setTimeout(() => {
 			requestTask.abort()
 			reject({errorCode:-1,message:'网络请求时间超时'})
 		}, timeout)
 	})
 }
-function response(res){
+function response(res,reject?){
 	if(res.message){
 	  uni.showToast({
 	      icon: 'none',
@@ -88,6 +89,7 @@ function response(res){
 	      title: "服务器异常"
 	  });
 	}
+	reject && reject(res)
 }
 function serialize(obj, prefix?){
   var str = [], p;
@@ -112,7 +114,7 @@ const service = {
 				resolve(res)
 			}).catch(err=>{
 				closeLoading(config)
-				reject(err)
+				response(err,reject)
 			})
 		})
 	},
@@ -127,7 +129,7 @@ const service = {
 				resolve(res)
 			}).catch(err=>{
 				closeLoading(config)
-				reject(err)
+				response(err,reject)
 			})
 		})
 	},
@@ -144,7 +146,7 @@ const service = {
 				resolve(res)
 			}).catch(err=>{
 				closeLoading(config)
-				reject(err)
+				response(err,reject)
 			})
 		})
 	},

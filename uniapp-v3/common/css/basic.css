@@ -17,9 +17,14 @@
 	font-style: normal;
 	src: url('~@/static/fonts/invenicon.ttf') format('truetype');
 }
-body {
-	background: #EFF1F6;
+
+.app-content{
+	width: 100%;
+	height: 100%;
+	background: #f4f4f8;
+	font-size: 14px;
 }
+
 .txt-size-smaller {
 	font-size: 10px;
 }

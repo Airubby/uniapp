@@ -96,6 +96,12 @@
 				"style": {
 					"navigationBarTitleText": "网络信息"
 				}
+			},
+			{
+				"path": "telphone",
+				"style": {
+					"navigationBarTitleText": "拨打电话"
+				}
 			}
 		]
 	},
@@ -121,6 +127,7 @@
 		"root": "pages/mine",
 		"pages": [{
 				"path": "index",
+				"aliasPath": "/",
 				"style": {
 					"navigationBarTitleText": "我的"
 				}
@@ -128,7 +135,80 @@
 			{
 				"path": "carTime",
 				"style": {
+					"app-plus": {
+						"titleNView": {
+							"buttons": [{
+								"text": "取消",
+								// "fontSrc": "/static/iconfont.ttf",
+								"fontSize": "16px",
+								"color": "#ffffff",
+								"float": "left"
+							},
+							{
+								"text": "提交",
+								// "fontSrc": "/static/iconfont.ttf",
+								"fontSize": "16px",
+								"color": "#169BD5",
+								"float": "right",
+								"marginRight":"10px"
+							}]
+						}
+					},
 					"navigationBarTitleText": "表单车牌日期"
+					
+				}
+			},
+			{
+				"path": "scrollView",
+				"style": {
+					"app-plus": {},
+					"navigationBarTitleText": "页面内部滚动"
+					
+				}
+			},
+			{
+				"path": "classify",
+				"style": {
+					"app-plus": {
+						"titleNView": true
+					},
+					"navigationBarTitleText": "我的应用"
+					
+				}
+			},
+			{
+				"path": "editClassify",
+				"style": {
+					"app-plus": {
+						"titleNView": {
+							"buttons": [{
+								"text": "完成",
+								// "fontSrc": "/static/iconfont.ttf",
+								"fontSize": "16px",
+								"color": "#169BD5",
+								"float": "right",
+								"marginRight":"10px"
+							}]
+						}
+					},
+					"navigationBarTitleText": "分类我的应用"
+					
+				}
+			},
+			{
+				"path": "tabs",
+				"style": {
+					"app-plus": {},
+					"navigationBarTitleText": "头部tabs-加载更多"
+					
+				}
+			},
+			{
+				"path": "webView",
+				"style": {
+					"app-plus": {},
+					"navigationBarTitleText": "嵌套webView"
+					
 				}
 			}
 		]
@@ -165,11 +245,15 @@
 		]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",  //设置状态栏字体颜色，只支持white、black这两个颜色默认black
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#464C5B",
+		"backgroundColor": "#464C5B"
 		// "navigationStyle":"custom"  //custom取消默认的原生导航栏，自定义导航栏
+		// "app-plus": {
+		// 	"popGesture": "close",  //close启用侧滑，none禁用侧滑 
+		// 	"bounce": "none"  //禁止上下拖动页面  all,horizontal,vertical,none
+		// }
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

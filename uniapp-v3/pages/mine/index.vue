@@ -48,6 +48,10 @@
 	
 	const dataarry=ref([
 		{name:"表单车牌日期",path:"/pages/mine/carTime"},
+		{name:"页面内部滚动-头部固定在上面",path:"/pages/mine/scrollView"},
+		{name:"分类我的应用",path:"/pages/mine/classify"},
+		{name:"头部tabs-加载更多",path:"/pages/mine/tabs"},
+		{name:"嵌套webView",path:"/pages/mine/webView"},
 	])
 	const searchvalue=ref("")
 	
@@ -113,6 +117,7 @@
 	
 	.scrollcontent {
 		width: 100%;
+		background: #f4f4f8;
 		padding: 66px 12px 0;
 		box-sizing: border-box;
 	}

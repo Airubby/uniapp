@@ -114,8 +114,8 @@
 	import { reactive, toRefs, computed } from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
 	// import testApi from "@/api/modules/test"
-	import {testApi} from "@/api/index"
-	import {usePermissionStore} from "@/store/index"
+	import {testApi} from "@/api"
+	import {usePermissionStore} from "@/store"
 	import { Encrypto } from "@/utils/AEScrypto"
 	const permissionStore = usePermissionStore();
 	

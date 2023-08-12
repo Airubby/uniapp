@@ -1,22 +1,25 @@
 import service from '../request'
 
-/**  getCode(phone: string): Promise<{ num: number }> {}
+/**  
  * @param {Object} data {username: string, password: string}
  */
 export function login(data) {
-  return service.post('/authentication', data)
+  return service.post('/authentication', data,{timeout:200})
 }
 
 export function loginQuery(data) {
   return service.postQuery('/authentication', data)
 }
 
-function getCode(){
+export function getCode(){
   return service.get('/api/v1/system/config/queryAppConfig')
 }
 
-function getPage(params){
-  return service.get('/api/v1/system/visual/page',params,{timeout:20})
+/**
+ * @param {Object} data {userid:"99999999999999999",bu:"home"}
+ */
+export function getPage(data){
+  return service.get('/api/v1/system/visual/page',data,{timeout:20})
 }
 
 export default {
