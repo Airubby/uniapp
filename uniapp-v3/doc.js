@@ -126,4 +126,12 @@
 		})
 		
 	})
+	
+	微信：
+	预览图片：可以直接用uni.previewImage({})
+	wx.previewImage({
+		urls:pictures.map(v=>v.url),  //pictures为图片数组对象
+		current:url  //当前的图片url
+	})
+	
 */

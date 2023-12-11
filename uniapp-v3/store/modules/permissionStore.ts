@@ -22,14 +22,21 @@ const usePermissionStore = defineStore('permissionStore', {
 		}
 	},
 	persist: {  //只有localStorage
-		storage: localStorage,
-		paths: ["token", "baseURL","limits"],
-		beforeRestore: context => {
-		  // console.log("Before" + context);
+		storage: {
+			getItem(key){
+				return uni.getStorageSync(key)
+			},
+			setItem(key,value){
+				uni.setStorageSync(key,value)
+			}
 		},
-		afterRestore: context => {
-		  // console.log("After" + context);
-		}
+		// paths: ["token", "baseURL","limits"],
+		// beforeRestore: context => {
+		//   // console.log("Before" + context);
+		// },
+		// afterRestore: context => {
+		//   // console.log("After" + context);
+		// }
 	  }
 })
 
