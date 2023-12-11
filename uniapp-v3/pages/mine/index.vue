@@ -51,7 +51,9 @@
 		{name:"页面内部滚动-头部固定在上面",path:"/pages/mine/scrollView"},
 		{name:"分类我的应用",path:"/pages/mine/classify"},
 		{name:"头部tabs-加载更多",path:"/pages/mine/tabs"},
+		{name:"头部tabs-页面滚动",path:"/pages/mine/tabsScroll"},
 		{name:"嵌套webView",path:"/pages/mine/webView"},
+		{name:"自适应绑定web",path:"/pages/mine/webBind"},
 	])
 	const searchvalue=ref("")
 	

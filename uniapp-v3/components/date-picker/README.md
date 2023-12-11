@@ -2,7 +2,7 @@
 
 ## 使用
 
-<date-picker ref="showPicker" type="datetime" @confirm="confirmTime" format="yyyy-mm-dd hh:ii"></date-picker>
+<date-picker ref="showPicker" type="datetime" v-model="pickerDate"  @confirm="confirmTime" format="yyyy-mm-dd hh:ii:ss"></date-picker>
 showPicker.value.open()
 
 ## 属性

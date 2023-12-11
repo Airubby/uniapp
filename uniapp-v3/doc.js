@@ -80,7 +80,7 @@
 		}
 		//判断是目录
 		if(entry.isDirectory){
-			//递归删除目录，不会删除根目录
+			//递归删除目录，不会删除根目录，上面的读取删除会删除根目录
 			entry.removeRecursively(function(){
 				//删除成功回调
 				
@@ -133,5 +133,4 @@
 		urls:pictures.map(v=>v.url),  //pictures为图片数组对象
 		current:url  //当前的图片url
 	})
-	
 */

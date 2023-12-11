@@ -1,42 +1,83 @@
 <template>
 	<view class="app-content">
-		<view class="app-content">
-			<view class="page-head">
-				<view class="menuview">
-					<block v-for="(item,index) in menuarray" :key="index">
-						<view class="menuitem" :class="[pagination.type==item.key?'menuitemact':'menuitemnor']" @click="tomenu(item)">
-							{{item.name}}
-						</view>
-					</block>
-				</view>
+		<view class="page-head">
+			<view class="menuview">
+				<block v-for="(item,index) in menuarray" :key="index">
+					<view class="menuitem" :class="[pagination.type==item.key?'menuitemact':'menuitemnor']" @click="tomenu(item)">
+						{{item.name}}
+					</view>
+				</block>
 			</view>
-			<view class="scrollcontent">
-				<scroll-view scroll-y class="scrolllist" enable-back-to-top >
-					<view class="scrolllist-con">
-						<block v-for="(item,index) in dataarry" :key="index">
-							<view class="list-cell">
-								<view class="list-cell-title">
-									{{item.name}}
-									<view class="title-code">| {{item.code}}</view>
-								</view>
-								<view class="list-cell-con">
-									<view class="list-cell-left" @click="tolist(item)">
-										<view class="cell-box">
-											<view class="cell-box-con">
-												<text class="color-second">{{infotitle}}：</text>
-												<text class="color-36435b">{{item.info}}</text>
-											</view>
-										</view>
+		</view>
+		<view class="scrollcontent">
+			<view class="scrolllist-con" v-show="pagination.type==1">
+				<block v-for="(item,index) in dataarry" :key="index">
+					<view class="list-cell">
+						<view class="list-cell-title">
+							{{item.name}}
+							<view class="title-code">| {{item.code}}</view>
+						</view>
+						<view class="list-cell-con">
+							<view class="list-cell-left" @click="tolist(item)">
+								<view class="cell-box">
+									<view class="cell-box-con">
+										<text class="color-second">{{infotitle}}：</text>
+										<text class="color-36435b">{{item.info}}</text>
 									</view>
-									<text class="list-cell-right color-active">
-										<uni-icons type="forward" size="18" color="#9aa1ad"></uni-icons>
-									</text>
 								</view>
 							</view>
-						</block>
-						<view class="load-more" @click="loadMore">{{loadInfo}}</view>
+							<text class="list-cell-right color-active">
+								<uni-icons type="forward" size="18" color="#9aa1ad"></uni-icons>
+							</text>
+						</view>
 					</view>
-				</scroll-view>
+				</block>
+			</view>
+			<view class="scrolllist-con" v-show="pagination.type==2">
+				<block v-for="(item,index) in dataarry" :key="index">
+					<view class="list-cell">
+						<view class="list-cell-title">
+							{{item.name}}
+							<view class="title-code">| {{item.code}}</view>
+						</view>
+						<view class="list-cell-con">
+							<view class="list-cell-left" @click="tolist(item)">
+								<view class="cell-box">
+									<view class="cell-box-con">
+										<text class="color-second">{{infotitle}}：</text>
+										<text class="color-36435b">{{item.info}}</text>
+									</view>
+								</view>
+							</view>
+							<text class="list-cell-right color-active">
+								<uni-icons type="forward" size="18" color="#9aa1ad"></uni-icons>
+							</text>
+						</view>
+					</view>
+				</block>
+			</view>
+			<view class="scrolllist-con" v-show="pagination.type==3">
+				<block v-for="(item,index) in dataarry" :key="index">
+					<view class="list-cell">
+						<view class="list-cell-title">
+							{{item.name}}
+							<view class="title-code">| {{item.code}}</view>
+						</view>
+						<view class="list-cell-con">
+							<view class="list-cell-left" @click="tolist(item)">
+								<view class="cell-box">
+									<view class="cell-box-con">
+										<text class="color-second">{{infotitle}}：</text>
+										<text class="color-36435b">{{item.info}}</text>
+									</view>
+								</view>
+							</view>
+							<text class="list-cell-right color-active">
+								<uni-icons type="forward" size="18" color="#9aa1ad"></uni-icons>
+							</text>
+						</view>
+					</view>
+				</block>
 			</view>
 		</view>
 	</view>
@@ -83,52 +124,14 @@
 		type:1  //1机柜 2线路 3设备记录
 	})
 	const tomenu=(item)=>{
-		dataarry.value=[]
-		pagination.value.pageIndex=1;
+		goTop()
 		pagination.value.type=item.key
-		infotitle.value=item.infotitle;
-		setTimeout(()=>{
-			getList()
-		},300)
 	}
-	const hasMore=ref(true)
-	const getList=(flag=false)=>{ //true表示当前条件下一页
-		loadInfo.value="加载中..."
-		let hasData=true
-		if(hasData){ //有数据
-			if(flag){
-				dataarry.value=dataarry.value.concat(menu2Arr.value)
-			}else{
-				dataarry.value=menu2Arr.value
-			}
-			loadInfo.value="加载更多"
-		}else{
-			if(flag){
-				loadInfo.value="已全部加载";
-			}else{
-				loadInfo.value="无数据信息";
-			}
-			hasMore.value=false;
-		}
-		
+	
+	const getList=()=>{
+		dataarry.value=dataarry.value.concat(menu2Arr.value)
 	}
 	getList()
-	
-	//条件筛选
-	const getSearch=()=>{
-		hasMore.value=true;
-		pagination.value.pageIndex=1;
-		getList()
-	}
-	//加载更多
-	const loadMore=()=>{
-		if(hasMore.value){
-			//这里需要判断是否下一个分页有数据回来，没有就不用再++ getList
-			pagination.value.pageIndex++;
-			getList()
-		}
-	}
-	
 	
 	const tolist=(item)=>{
 		uni.navigateTo({
@@ -144,7 +147,6 @@
 	
 	onReachBottom(() => {
 		console.log("上拉加载刷新,scroll-view不支持,仅原生页面支持");
-		loadMore()
 	})
 </script>
 
@@ -154,6 +156,14 @@
 		width: 100%;
 		background-color: #f4f4f8;
 		border-bottom: 1px solid #e7e7e7;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 99;
+		// #ifndef APP-PLUS
+		top: var(--status-bar-height)+"px";
+		// #endif
 		.menuview{
 			height: 40px;
 			width: 100%;

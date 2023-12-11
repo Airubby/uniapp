@@ -151,7 +151,10 @@
 								"color": "#169BD5",
 								"float": "right",
 								"marginRight":"10px"
-							}]
+							}],
+							//buttons 中可以给type:"none","close":×按钮,"back":返回按,"favorite":收藏按钮,"forward":向右按钮,"menu":三个点按钮,"share":框中右箭头分享按钮
+							"autoBackButton": true,  //标题栏控件是否显示左侧返回按钮,仅app有效，当设置了左侧buttons时不显示原生返回按钮
+							"homeButton": false //标题栏控件是否显示Home按钮，在右侧展示的
 						}
 					},
 					"navigationBarTitleText": "表单车牌日期"
@@ -163,7 +166,6 @@
 				"style": {
 					"app-plus": {},
 					"navigationBarTitleText": "页面内部滚动"
-					
 				}
 			},
 			{
@@ -204,10 +206,25 @@
 				}
 			},
 			{
+				"path": "tabsScroll",
+				"style": {
+					"app-plus": {},
+					"navigationBarTitleText": "页面滚动"
+				}
+			},
+			{
 				"path": "webView",
 				"style": {
 					"app-plus": {},
 					"navigationBarTitleText": "嵌套webView"
+					
+				}
+			},
+			{
+				"path": "webBind",
+				"style": {
+					"app-plus": {},
+					"navigationBarTitleText": "自适应绑定web"
 					
 				}
 			}

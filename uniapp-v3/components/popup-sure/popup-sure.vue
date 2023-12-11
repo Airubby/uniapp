@@ -3,7 +3,7 @@
 		<view :class="[ani, animation ? 'ani' : '', !custom ? 'uni-custom' : '']" class="uni-popup__mask" @click="maskClose()" />
 		<view :class="[type, ani, animation ? 'ani' : '', !custom ? 'uni-custom' : '']" class="uni-popup__wrapper" @click="close(true)">
 			<view class="uni-popup__wrapper-box" @click.stop="clear">
-				<view class="uni-tip-title">{{ title }}</view>
+				<view class="uni-tip-title" v-if="title">{{ title }}</view>
 				<scroll-view scroll-y="true" class="uni-tip-content">
 					<slot></slot>
 					<!-- #ifndef H5 -->
@@ -11,8 +11,8 @@
 					<!-- #endif -->
 				</scroll-view>
 				<view class="uni-tip-group-button">
-					<view class="uni-tip-button" @click="close()">取消</view>
-					<view class="uni-tip-button sure" @click="sure()">确定</view>
+					<view class="uni-tip-button" @click="close()" v-show="btnType=='both'||btnType=='cancel'">{{cancelBtn}}</view>
+					<view class="uni-tip-button sure" @click="sure()" v-show="btnType=='both'||btnType=='sure'">{{sureBtn}}</view>
 				</view>
 			</view>
 		</view>
@@ -54,8 +54,20 @@
 		},
 		title: {
 			type: String,
-			default: "提示",
+			default: "",
 		},
+		btnType:{
+			type:String,
+			default:"both",  //cancel,sure,both
+		},
+		cancelBtn:{
+			type:String,
+			default:"取消"
+		},
+		sureBtn:{
+			type:String,
+			default:"确定"
+		}
 	});
 	const emit = defineEmits(["change","sure"]);
 	const showPopup = ref < boolean > (false)

@@ -5,7 +5,7 @@
 			<text class="title">拨打电话</text>
 		</view>
 		<view class="caozuo">
-			<view class="chongqian" @tap='telPhone(15228983615)'>
+			<view class="chongqian" @tap='telPhone(15222222222)'>
 				点击拨打电话
 			</view>
 		</view>

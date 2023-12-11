@@ -77,7 +77,7 @@
 				</view>
 			</view>
 		</popup>
-		<date-picker ref="showPicker" type="datetime" @confirm="confirmTime" format="yyyy-mm-dd hh:ii"></date-picker>
+		<date-picker ref="showPicker" type="datetime" @confirm="confirmTime" format="yyyy-mm-dd hh:ii" v-model="time"></date-picker>
 	</view>
 </template>
 
@@ -96,6 +96,7 @@
 		
 	}
 	//日历信息
+	const time=ref("")
 	const pickerType=ref("")
 	const showPicker=ref<any>(null)
 	const selectTime=(type)=>{

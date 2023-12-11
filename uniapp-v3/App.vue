@@ -120,7 +120,7 @@
 		// 只有在该函数中返回值为 true 时，才表示不执行默认的返回，自行处理此时的业务逻辑。
 	})
 	onReachBottom(() => {
-		console.log("上拉加载刷新");
+		console.log("上拉加载更多");
 	})
 	onPullDownRefresh(() => {
 		console.log("下拉加载刷新");
@@ -128,6 +128,7 @@
 	onNavigationBarButtonTap((event) => {
 		if(event.index == 0){
 			console.log("点击了第一个按钮")
+			uni.navigateBack()
 		}
 		console.log("监听原生标题栏按钮点击事件,在pages.json中配置的导航按钮")
 		// {
@@ -156,10 +157,28 @@
 		// let page: any = pages[pages.length - 1];
 		// let ws = page.$getAppWebview();
 	})
+	
+	// const props = defineProps({
+	//     dialogInfo: {
+	// 	    type: Object,
+	// 		default: () => {
+	// 			return {
+	// 			   visible: false,
+	// 			   data: null
+	// 			};
+	// 		}
+	//     },
+	// });
+	// const emit = defineEmits(["handleBack"])
+	// const fn=()=>{}  //thisRef.value.fn();
+	// defineExpose({
+	//     fn,
+	// });
 </script>
 <style lang="less">
 	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
-	@import "./common/css/uni.css";
+	@import "@/common/css/uni.css";
+	// @import url("@/common/css/uni.css");
 	/*每个页面公共css */
 	@import "./common/css/basic.css";
 	// @import "./common/css/myapp.css";

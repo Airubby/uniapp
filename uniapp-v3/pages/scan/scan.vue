@@ -45,6 +45,7 @@
 		barcode.close();
 	}
 	const createBarcode = (currentWebview) => {
+		// https://www.html5plus.org/doc/zh_cn/barcode.html
 		//自定义窗口大小
 		// QR: QR二维码，数值为0 一般二维码就只用这个
 		// EAN13: EAN条形码标准版，数值为1
@@ -72,7 +73,7 @@
 			scanbarColor: '#1DA7FF',
 			position: 'static',
 			frameColor: '#1DA7FF'
-		});
+		},true); //true 自适应编码
 		barcode.onmarked = onmarked;
 		barcode.setFlash(state.flash);
 		currentWebview.append(barcode);

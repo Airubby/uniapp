@@ -76,7 +76,7 @@
 					scanbarColor: '#1DA7FF',
 					position: 'static',
 					frameColor: '#1DA7FF'
-				});
+				},true);  //true 自适应编码
 				barcode.onmarked = this.onmarked;
 				barcode.setFlash(this.flash);
 				currentWebview.append(barcode);

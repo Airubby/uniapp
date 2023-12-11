@@ -4,9 +4,6 @@ export function setToken(token: string) {
 export function setBaseURL(baseURL: string) {
 	uni.setStorageSync("baseURL",baseURL)
 }
-export function setHasLogin(flag:boolean){
-	uni.setStorageSync("hasLogin",flag)
-}
 export function setLimits(limits:any[]){
 	uni.setStorageSync("limits",limits)
 }
@@ -18,7 +15,6 @@ export function getStorage(key:string){
 export default {
   setToken,
   setBaseURL,
-  setHasLogin,
   setLimits,
   getStorage
 }

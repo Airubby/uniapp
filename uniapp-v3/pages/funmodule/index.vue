@@ -1,7 +1,7 @@
 <template>
-	<view class='contents'>
+	<view class='app-content'>
 		<view class="status_bar"></view>
-		<view>
+		<view class="contenter">
 			<text class="title">功能列表</text>
 			<view>
 				<view class="list" @tap='listClick(item.navPath)' v-for="(item,index) in List" :key="index">
@@ -50,6 +50,9 @@
 </script>
 
 <style scoped lang="less">
+	.contenter{
+		overflow: hidden;
+	}
 	.title{
 		width: 100%;
 		display: block;

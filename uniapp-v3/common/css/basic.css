@@ -1,6 +1,6 @@
 /* 这里是状态栏 */
 .status_bar {
-	height: var(--status-bar-height);
+	height: var(--status-bar-height)+"px";
 	width: 100%;
 }
 /* //引入自己的图片 */

@@ -1,10 +1,10 @@
 
-// import usePermissionStore from "@/store/modules/permissionStore"
-import {usePermissionStore} from "@/store/index"
-
+import {usePermissionStore} from "@/store"
+import serverConfig from '@/utils/serverConfig';
+import { autority } from "@/common"
 const baseConfig = { // 有效配置项只有三个
 	// baseURL: 'https://www.fastmock.site/mock/b5aeba034aac038de76b613109a5cce7/test', //baseURL
-	baseURL: "http://ymk.loncomip.com:3310",
+	baseURL: serverConfig.baseSite,
 	timeout: 5000, // 超时时间
 }
 
@@ -39,18 +39,23 @@ function request(method, url, data , config) {
 	const permissionStore = usePermissionStore();
 	let reqtimer;
 	let timeout = baseConfig.timeout;
-	if(config && config.timeout){
-		timeout = config.timeout
-	}
-	
 	let header= {
 		"Content-Type": "application/json;charset=utf-8",
 		"Token":permissionStore.token
 	}
-	if(config&&config.header){
-		header={
-			...header,
-			...config.header
+	let responseType="text"  //text,arraybuffer
+	if(config){
+		if(config.timeout){
+			timeout = config.timeout
+		}
+		if(config.header){
+			header={
+				...header,
+				...config.header
+			}
+		}
+		if(config.responseType){
+			responseType=config.responseType
 		}
 	}
 	let _watcher={abort:null}
@@ -62,6 +67,7 @@ function request(method, url, data , config) {
 			method,
 			header,
 			timeout,
+			responseType,
 			success: res => {
 				clearTimeout(reqtimer)
 				res.statusCode === 200 ? resolve(res.data) : reject(res.data)
@@ -69,10 +75,22 @@ function request(method, url, data , config) {
 			fail: res => {
 				clearTimeout(reqtimer)
 				_watcher.abort ? reject({errorCode:-1,message:'网络请求失败：主动取消'}) : reject({errorCode:-1,message:'网络请求失败：（URL无效|无网络|DNS解析失败|请求时间过长）'})
+			},
+			complete:(res:any)=>{
+				if(res.statusCode!==200){
+					uni.showToast({
+					    icon: 'none',
+					    title: "Token过期,请重新登录"
+					});
+					permissionStore.setToken("")
+					let routes:any = getCurrentPages(); // 获取当前打开过的页面路由数组
+					let curRoute = routes[routes.length - 1].$page.fullPath
+					autority(curRoute)
+				}
 			}
 		})
 		reqtimer = setTimeout(() => {
-			requestTask.abort()
+			requestTask.abort()  //中断请求任务
 			reject({errorCode:-1,message:'网络请求时间超时'})
 		}, timeout)
 	})
