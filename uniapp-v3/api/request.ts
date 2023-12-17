@@ -11,15 +11,17 @@ const baseConfig = { // 有效配置项只有三个
 let acitveAxios = 0;
 let timer: any = null;
 const showLoading = (config) => {
+	console.log(config)
 	if (!config||!config.noLoading) {
 		acitveAxios++;
 		if (timer) {
 			clearTimeout(timer);
 		}
+		console.log(acitveAxios)
 		timer = setTimeout(() => {
 			if (acitveAxios > 0) {
 				uni.showLoading({
-					title: '数据加载中...',
+					title: config.loadingMsg||'数据加载中...',
 					mask: true
 				})
 			}
@@ -35,67 +37,7 @@ const closeLoading = (config) => {
 		}
 	}
 };
-function request(method, url, data , config) {
-	const permissionStore = usePermissionStore();
-	let reqtimer;
-	let timeout = baseConfig.timeout;
-	let header= {
-		"Content-Type": "application/json;charset=utf-8",
-		"Token":permissionStore.token
-	}
-	let responseType="text"  //text,arraybuffer
-	if(config){
-		if(config.timeout){
-			timeout = config.timeout
-		}
-		if(config.header){
-			header={
-				...header,
-				...config.header
-			}
-		}
-		if(config.responseType){
-			responseType=config.responseType
-		}
-	}
-	let _watcher={abort:null}
-	let requestTask:any
-	return new Promise((resolve, reject) => {
-		requestTask = uni.request({
-			url: baseConfig.baseURL + url,
-			data,
-			method,
-			header,
-			timeout,
-			responseType,
-			success: res => {
-				clearTimeout(reqtimer)
-				res.statusCode === 200 ? resolve(res.data) : reject(res.data)
-			},
-			fail: res => {
-				clearTimeout(reqtimer)
-				_watcher.abort ? reject({errorCode:-1,message:'网络请求失败：主动取消'}) : reject({errorCode:-1,message:'网络请求失败：（URL无效|无网络|DNS解析失败|请求时间过长）'})
-			},
-			complete:(res:any)=>{
-				if(res.statusCode!==200){
-					uni.showToast({
-					    icon: 'none',
-					    title: "Token过期,请重新登录"
-					});
-					permissionStore.setToken("")
-					let routes:any = getCurrentPages(); // 获取当前打开过的页面路由数组
-					let curRoute = routes[routes.length - 1].$page.fullPath
-					autority(curRoute)
-				}
-			}
-		})
-		reqtimer = setTimeout(() => {
-			requestTask.abort()  //中断请求任务
-			reject({errorCode:-1,message:'网络请求时间超时'})
-		}, timeout)
-	})
-}
-function response(res,reject?){
+const response=(res,reject?)=>{
 	if(res.message){
 	  uni.showToast({
 	      icon: 'none',
@@ -109,65 +51,93 @@ function response(res,reject?){
 	}
 	reject && reject(res)
 }
-function serialize(obj, prefix?){
-  var str = [], p;
-  for(p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-      //为数组或者对象
-      str.push((v !== null && typeof v === "object") ? serialize(v, k) : encodeURIComponent(k) + "=" + encodeURIComponent(v));
-    }
-  }
-  return str.join("&");
+const permissionStore = usePermissionStore();
+/**
+ * 添加拦截器
+ * 拦截request请求
+ * 拦截uploadFile文件上传
+ * 
+ * todo
+ * 1、非http开头需拼接地址
+ * 2、请求超时
+ * 3、添加小程序端请求头标识
+ * 4、添加token请求头标识
+ */
+//添加拦截器
+const httpInterceptor={
+	invoke(options:UniApp.RequestOptions){
+		//1、非http开头需要拼接地址
+		if(!options.url.startsWith('http')){
+			options.url=baseConfig.baseURL+options.url
+		}
+		//2、请求超时，默认60s
+		options.timeout=options.timeout||baseConfig.timeout
+		//3、添加小程序端请求头标识
+		options.header={
+			...options.header,
+			"Content-Type": "application/json;charset=utf-8",
+			"Token":permissionStore.token,  //Authorization
+			'source-client':'miniapp'  //小程序添加头信息，根据实际添加
+		}
+		//responseType:text,arraybuffer  默认text
+	}
 }
-const service = {
-	get: function (url, data?, config?) {
-		showLoading(config)
-		return new Promise((resolve, reject) => {
-			request("GET", url, data, config).then((res:any)=>{
-				closeLoading(config)
-				if(res.errorCode=="-1"){
-					response(res)
+uni.addInterceptor('request',httpInterceptor)
+uni.addInterceptor('uploadFile',httpInterceptor)
+
+/**
+ * 请求函数
+ * @param UniApp.RequestOptions
+ * @returns Promise
+ * 1、返回 Promise 对象
+ * 2、请求成功
+ *  提取核心数据res.data
+ * 	添加类型，支持泛型
+ * 3、请求失败
+ *  网络错误-提示用户换网络
+ *  401错误-清理用户信息，跳转到登录页
+ *  其它错误-根据后端错误信息提示
+ */
+
+interface Data<T>{
+	errorCode:string,
+	message:string,
+	result:T
+}
+const service=<T>(options:UniApp.RequestOptions)=>{
+	showLoading(options.header)
+	//1、返回 Promise 对象
+	return new Promise<Data<T>>((resolve,reject)=>{
+		uni.request({
+			...options,
+			success(res) {
+				console.log(res)
+				if(res.statusCode>=200&& res.statusCode<300){
+					if((res.data as Data<T>).errorCode=="-1"){
+						response(res.data)
+					}
+					resolve(res.data as Data<T>)
+				}else if(res.statusCode===401){
+					response({message:"Token过期,请重新登录"})
+					permissionStore.setToken("")
+					let routes:any = getCurrentPages(); // 获取当前打开过的页面路由数组
+					let curRoute = routes[routes.length - 1].$page.fullPath
+					autority(curRoute)
+					reject(res)
+				}else{
+					response({message:(res.data as Data<T>).message||'请求错误'})
+					reject(res)
 				}
-				resolve(res)
-			}).catch(err=>{
-				closeLoading(config)
-				response(err,reject)
-			})
+			},
+			fail(err) {
+				response({message:'网络请求失败：（URL无效|无网络|DNS解析失败|请求时间过长）'})
+				reject(err)
+			},
+			complete:(res)=>{
+				closeLoading(options.header)
+			}
 		})
-	},
-	post: function (url, data?, config?) {
-		showLoading(config)
-		return new Promise((resolve, reject) => {
-			request("POST", url, data, config).then((res:any)=>{
-				closeLoading(config)
-				if(res.errorCode=="-1"){
-					response(res)
-				}
-				resolve(res)
-			}).catch(err=>{
-				closeLoading(config)
-				response(err,reject)
-			})
-		})
-	},
-	//post请求，参数放地址栏
-	postQuery: function (url, data?, config?) {
-		showLoading(config)
-		let newurl=url+"?"+serialize(data);
-		return new Promise((resolve, reject) => {
-			request("POST", newurl, null, config).then((res:any)=>{
-				closeLoading(config)
-				if(res.errorCode=="-1"){
-					response(res)
-				}
-				resolve(res)
-			}).catch(err=>{
-				closeLoading(config)
-				response(err,reject)
-			})
-		})
-	},
+	})
 }
 
 export default service

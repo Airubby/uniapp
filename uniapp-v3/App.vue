@@ -1,3 +1,25 @@
+<script lang="ts">
+	export default	{
+		//获取：getApp().globalData
+		//设置：getApp().globalData.userInfo={name:"admin"}
+		globalData:{
+		    userInfo: null,
+		    currentPrinter: {
+		      factory: '',        // 打印机生产厂家
+		      name: '',           // 打印机名称
+		      UUID: '',           // 打印机标识码
+		      MAC: '',            // 打印机MAC地址
+		      printerType: 0,     // 打印机类型
+		      DPI: 203,           // 打印机DPI
+		      width: 384,         // 打印机能打印的宽度
+		      softVersion: '',    // 打印机软件版本号
+		      hardVersion: '',    // 打印机硬件版本号
+		      seriesName: '',     // 产品系列名称，如 DT20
+		      devIntName: '',     // 内部型号名称，如 DT20S
+		    }
+		}
+	}
+</script>
 <script setup lang="ts">
 	import {
 		onLaunch,
@@ -13,8 +35,12 @@
 		onPullDownRefresh
 	} from '@dcloudio/uni-app'
 	import { onMounted, getCurrentInstance  } from "vue"
+	
 	onLaunch(() => {
 		console.log('App Launch 初始化完成时（全局只触发一次）')
+		
+		// 标签中： <!-- #ifdef APP-PLUS -->  <!-- #endif -->  
+		// CSS中： /* #ifdef APP-PLUS */  /* #endif */
 		
 		// #ifdef APP-PLUS
 		console.log("仅出现在 App 平台下的代码")
@@ -73,9 +99,6 @@
 		})
 		console.log('App Load 第一次更新 每个页面的参数获取的地方,子页面返回不更新')
 	})
-	onUnload(() => {
-		console.log('App Unload 销毁执行')
-	})
 	onReady(()=>{
 		console.log("监听页面初次渲染完成。获取dom元素在此生命周期。注意如果渲染速度快，会在页面进入动画完成前触发")
 		// let query = uni.createSelectorQuery();
@@ -84,7 +107,12 @@
 		// }).exec();
 	})
 	onHide(() => {
+		//由A页面进入B页面会执行A页面的onHide()；当前页面依旧在 页面栈 中，但小程序要离开此页面
 		console.log('App Hide 页面隐藏,与onShow相反')
+	})
+	onUnload(() => {
+		//由A页面进入B页面会执行A页面的onHide(), 再由B页面返回A页面会执行B页面的onUnload()
+		console.log('App Unload 销毁执行')
 	})
 	onBackPress((event) => {
 		console.log(event, "点击返回按钮,原生头部返回及手机返回")

@@ -41,7 +41,7 @@
 			<!-- #ifdef APP-PLUS -->
 			<text class="txt-size-small color-tips">本机唯一识别码</text>
 			<!-- #endif -->
-			<text :selectable="true" class="txt-size-small color-normal"
+			<text :user-select="true" class="txt-size-small color-normal"
 				style="height: 32upx;line-height: 32upx;">uniapp-demo</text>
 			<image src="/static/images/login/ymk.png"></image>
 		</view>
@@ -51,10 +51,13 @@
 <script setup lang="ts">
 	import { reactive, toRefs, ref } from 'vue'
 	import { onShow, onLoad } from '@dcloudio/uni-app'
+	import {testApi} from "@/api"
+	import {usePermissionStore} from "@/store"
+	const permissionStore = usePermissionStore();
 	const state = reactive({
 		initparam: {
-			username: '',
-			password: ''
+			username: 'admin',
+			password: 'Loncom@2022#'
 		},
 		offline: false,
 		infor: "",
@@ -99,6 +102,17 @@
 		}
 	}
 	const login = () => {
+		// testApi.login(state.initparam).then((res:any)=>{
+		// 	if(res.errorCode=="0"){
+		// 		permissionStore.setToken(res.responseContent.token)
+		// 		testApi.getPage({userid:res.responseContent.userId,bu:"home"}).then(res=>{
+		// 			uni.showToast({
+		// 				icon: 'none',
+		// 				title: '页面获取成功'
+		// 			});
+		// 		})
+		// 	}
+		// })
 		uni.showToast({
 			icon: 'none',
 			title: '登录成功'

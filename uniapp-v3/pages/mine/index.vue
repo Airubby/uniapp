@@ -54,6 +54,7 @@
 		{name:"头部tabs-页面滚动",path:"/pages/mine/tabsScroll"},
 		{name:"嵌套webView",path:"/pages/mine/webView"},
 		{name:"自适应绑定web",path:"/pages/mine/webBind"},
+		{name:"自定义导航",path:"/pages/mine/autonav"},
 	])
 	const searchvalue=ref("")
 	

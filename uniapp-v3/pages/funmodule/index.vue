@@ -32,6 +32,7 @@
 			{name:"蓝牙传输数据",navPath:"/pages/funmodule/bluetooth"},
 			{name:"网络信息",navPath:"/pages/funmodule/network"},
 			{name:"拨打电话",navPath:"/pages/funmodule/telphone"},
+			{name:"打印信息",navPath:"/pages/funmodule/printDataInfo"},
 		]
 	})
 	

@@ -109,7 +109,6 @@
 		</view>
 	</view>
 </template>
-
 <script setup lang="ts">
 	import { reactive, toRefs, computed } from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
@@ -150,7 +149,9 @@
 		}
 		
 		
-		test();
+		// test();
+		
+		console.log(getApp().globalData)
 		
 	})
 	
